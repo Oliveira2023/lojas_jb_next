@@ -10,6 +10,7 @@ import CardsLojas from "@components/cards_lojas";
 import estetica from "@public/estetica1000.jpg"
 import PaginaLoja from "./page_loja/page";
 import Header from "@components/header";
+import GoTopButton from "@components/goTopButton";
 
 export default function Home() {
 
@@ -20,7 +21,9 @@ export default function Home() {
   }
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-0">
-      <Header localLoja={updateSelecao}/>
+      <div className="w-full pl-24 pr-24 pt-2 pb-2 bg-yellow-400">
+        <Header localLoja={updateSelecao}/>
+      </div>
 
       <div className="z-10 w-full items-start justify-between font-mono text-sm lg:flex flex-row pl-24 pr-24 pt-4 pb-4">
         <div className="bg-green-400 min-h-96 mt-2 w-[25%]">
@@ -56,6 +59,12 @@ export default function Home() {
       </div>
       <div className="w-full pl-24 pr-24">
         <Footer />
+      </div>
+      {/* <div className="w-10 h-10 rounded-[50%] bg-red-400 fixed bottom-4 right-4 flex items-center justify-center hidden">
+        <button type="button">top</button>
+      </div> */}
+      <div>
+        <GoTopButton />
       </div>
     </main>
     

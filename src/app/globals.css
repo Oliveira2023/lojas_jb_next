@@ -22,7 +22,10 @@ body {
   color: rgb(var(--foreground-rgb));
   /* background-color: black; */
 }
-
+.container {
+  padding-left: 6rem;
+  padding-right: 6rem;
+}
 /* body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(

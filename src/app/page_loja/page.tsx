@@ -6,6 +6,8 @@ import { ListaLojas } from "@utils/listaLojas";
 import { Suspense, useEffect, useState } from "react"
 import Mapas from "@components/maps";
 import Link from "next/link";
+import Footer from "@components/footer";
+
 
 
 
@@ -47,8 +49,8 @@ export default function PaginaLoja({image}: any) {
                         <p>{descricao}</p>
                     </div>
             </div>
-            <div className="pr-24 pl-24">
-                <hr className="bg-slate-600 w-full pt-2 mt-2"/>
+            <div className="pl-24 pr-24">
+                <hr className=" bg-slate-600 w-full pt-2 mt-2"/>
             </div>
             <div className="flex flex-row pl-24 pr-24 justify-between mt-3 pt-2">
                 <div className="w-full flex flex-col gap-5">
@@ -69,16 +71,50 @@ export default function PaginaLoja({image}: any) {
                             </Link>
                         </div>
                     </div>
+                    <div className="w-full">
+                        <div className=" bg-green-500 p-2 w-52 h-52 rounded-full m-auto">
+                            <div className="m-auto bg-orange-500 p-2 rounded-full w-48 h-48 text-center flex flex-col align-center justify-center items-center text-white cursor-pointer">
+                                <p>Gerador de Cupons.</p>
+                                <p>Verifique aqui se a loja oferece descontos</p>
+                                <p>*lista cupons/loja</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
                 <div className="">
                 <Mapas local={buscaMapa}/>
                 </div>
             </div>
-            <div className="pr-24 pl-24">
-                <ul>
-                    <li className="list-disc">produtos</li>
+            <div className="pr-24 pl-24 w-full m-auto">
+                <p className="text-center">Principais produtos da loja:</p>
+                <ul className=" bg-slate-300 grid grid-cols-4 w-full justify-center gap-0 items-center">
+                    <li className="w-52 p-2 m-1 bg-blue-500"> 
+                        <Image src={"/camera500.jpg"} width={500} height={500} alt={"imagem da loja"} />
+                    <p className="text-center">produto1</p>
+                    </li>
+                    <li className="w-52 p-2 m-1 bg-blue-500">
+                        <Image src={"/camera500.jpg"} width={500} height={500} alt={"imagem da loja"} />
+                        <p className="text-center">produto2</p>
+                    </li>
+                    <li className="w-52 p-2 m-1 bg-blue-500"> 
+                        <Image src={"/camera500.jpg"} width={500} height={500} alt={"imagem da loja"} />
+                    <p className="text-center">produto3</p>
+                    </li>
+                    <li className="w-52 p-2 m-1 bg-blue-500"> 
+                        <Image src={"/camera500.jpg"} width={500} height={500} alt={"imagem da loja"} />
+                    <p className="text-center">produto4</p>
+                    </li>
+                    <li className="w-52 p-2 m-1 bg-blue-500"> 
+                        <Image src={"/camera500.jpg"} width={500} height={500} alt={"imagem da loja"} />
+                    <p className="text-center">produto4</p>
+                    </li>
+                    <li className="w-52 p-2 m-1 bg-blue-500"> 
+                        <Image src={"/camera500.jpg"} width={500} height={500} alt={"imagem da loja"} />
+                    <p className="text-center">produto4</p>
+                    </li>
                 </ul>
             </div>
+            <div className="pl-24 pr-24 mt-1 mb-1"><Footer/></div>
 
         </>
     )
