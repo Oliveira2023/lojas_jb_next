@@ -38,9 +38,11 @@ export default function PaginaLoja({image}: any) {
 
     return (
         <>
-            <Header localLoja={updateSelecao} />
-            <h1>Pagina Loja + {loja}</h1>
-            <div className="flex flex-row pl-24 pr-24 gap-2 items-center">
+            <div className="w-full pl-24 pr-24 pt-2 pb-2 bg-yellow-400" >
+                <Header localLoja={updateSelecao} />
+            </div>
+            {/* <h1>Pagina Loja {loja}</h1> */}
+            <div className="flex flex-row pl-24 pr-24 gap-2 items-center mt-4">
                 <div className="w-1/3">
                         <Image src={imageUrl? imageUrl : "/next.svg"} width={1000} height={1000} alt={"imagem da loja"}></Image>
                     </div>

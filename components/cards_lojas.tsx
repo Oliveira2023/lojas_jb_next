@@ -14,7 +14,7 @@ export default function CardsLojas({ nome, image, href }: CardsLojasProps) {
         <>
             <div className="">
                 <Link href={{pathname: href, query: {loja: nome}}}>
-                    <Image src={image} width={1000} height={1000} alt={nome}/>
+                    <Image className="" src={image} width={1000} height={1000} alt={nome}/>
                 </Link>
             </div>
         </>       

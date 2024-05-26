@@ -32,7 +32,7 @@ export default function Hero({local}: {local: string}) {
     }, [activeImgIndex]);
     return (
         <>
-            <h1 className="bg-gray-500 p-2 text-center text-3xl">Lojas {local}</h1>
+            <h1 className="bg-gray-500 p-2 text-center text-3xl">{local}</h1>
             <div className="flex flex-row  bg-blue-500 justify-between">
                 <div className="w-[1280px] m-2 relative">
                     {images.map((image, index) => (
