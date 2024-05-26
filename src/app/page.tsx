@@ -81,35 +81,13 @@ export default function Home() {
                 <CardsLojas nome={loja.titulo} image={loja.imageUrl} href={"/page_loja"} />
               </div>
           ) : null
-        
-          // (loja.grupo === grupo) && 
           
         ))}
       </div>
 
-
-      {/* <div className="w-full items-center flex flex-row gap-1 m-1 pl-24 pr-24">
-        <div className="w-1/4 ">
-          <CardsLojas nome="loja1" image={estetica.src} href={"/page_loja"}/>
-        </div>
-        <div className="w-1/4">
-          <CardsLojas nome="loja2" image="/sapatos1000.jpg" href="/page_loja"/>
-        </div>
-        <div className="w-1/4">
-          <CardsLojas nome="loja3" image="/padaria1000.jpg" href="/page_loja"/>
-        </div>
-        <div className="w-1/4">
-          <CardsLojas nome="loja4" image="/bar1000.jpg" href="/page_loja"/> 
-        </div>
-      </div> */}
-
-
       <div className="w-full pl-24 pr-24">
         <Footer />
       </div>
-      {/* <div className="w-10 h-10 rounded-[50%] bg-red-400 fixed bottom-4 right-4 flex items-center justify-center hidden">
-        <button type="button">top</button>
-      </div> */}
       <div>
         <GoTopButton />
       </div>
