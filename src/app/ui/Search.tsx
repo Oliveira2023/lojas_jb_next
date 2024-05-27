@@ -16,8 +16,6 @@ export default function Search({placeholder}: {placeholder: string}) {
     async function handleSearch(term: string){
         setInputtxt(term);
         
-        // await search(term).then((results) => results.forEach((result) => lojas?.push(result)));
-        // console.log(lojas);
 
         try {
             const results = await search(term);
@@ -43,7 +41,11 @@ export default function Search({placeholder}: {placeholder: string}) {
 
                 {/* <button className='absolute right-0 top-1/2 h-full rounded-md w-[55px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900 bg-fuchsia-400' onClick={() => console.log(inputtxt)}>Buscar</button> */}
             </div>
+            <div>
+                {(inputtxt.length > 0 && lojas.length <= 0) && <div className='w-full h-6 bg-fuchsia-400'>Nenhuma loja encontrada</div>}
+            </div>
             <div className={lojas.length <= 0? 'hidden': 'flex flex-row w-full items-center gap-1 h-12 p-0 mt-1' }>
+                
                 {(lojas.length > 0) && lojas.map((loja) => (
                     <div className='w-1/6' key={loja.numLoja}>
                         <CardsLojas nome={loja.numLoja} image={loja.imageUrl} href={"/page_loja"}/>

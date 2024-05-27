@@ -15,7 +15,8 @@ export default function PaginaLoja({image}: any) {
 
     const searchParams = useSearchParams();
     const search = searchParams.get('loja');
-    // console.log(search)
+    const grupo = searchParams.get('grupo');
+
     let imageUrl;
     let descricao;
     let titulo;
@@ -39,7 +40,7 @@ export default function PaginaLoja({image}: any) {
     return (
         <>
             <div className="w-full pl-24 pr-24 pt-2 pb-2 bg-yellow-400" >
-                <Header localLoja={updateSelecao} />
+                <Header localLoja={updateSelecao} pageLoja={grupo} />
             </div>
             {/* <h1>Pagina Loja {loja}</h1> */}
             <div className="flex flex-row pl-24 pr-24 gap-2 items-center mt-4">

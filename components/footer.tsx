@@ -23,10 +23,10 @@ export default function Footer() {
                 <div className="w-1/3 p-2 border border-black">
                     <h2 className="text-center text-xl">Encontre-nos</h2>
                     <div className="flex flex-row justify-around p-2">
-                        <Link href={""}>
+                        <Link href={""} target="_blank">
                                 <Image src={"/instagram-40P.png"} width={40} height={40} alt="icone whatsapp"></Image>
-                            </Link>
-                        <Link href={""}>
+                        </Link>
+                        <Link href={"https://wa.me/11963691532"}>
                             <Image src={"/whatsapp-33P.png"} width={40} height={40} alt="icone whatsapp"></Image>
                         </Link>
                         <Link href={""}>

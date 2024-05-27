@@ -1,11 +1,11 @@
 'use client'
 import Image from "next/image";
-import Categories from "./ui/categories";
+import Categories from "../../components/categories";
 import Hero from "./ui/hero";
 import Footer from "@components/footer";
 import { useEffect, useState } from "react";
 import CardsLojas from "@components/cards_lojas";
-import estetica from "@public/estetica1000.jpg"
+import FilterStore from "@utils/filterStore";
 import PaginaLoja from "./page_loja/page";
 import Header from "@components/header";
 import GoTopButton from "@components/goTopButton";
@@ -16,6 +16,8 @@ export default function Home() {
 
   const [loja, updateLoja] = useState<string>('Lojas Roland Garros')
   const [grupo, setGrupo] = useState<string>('roland')
+  const filteredLojas = FilterStore(grupo);
+  const lojasEncontradas = filteredLojas.lojasEncontradas;
 
   useEffect(() => {
 
@@ -25,11 +27,11 @@ export default function Home() {
       setGrupo('japao');
     } else if (loja === 'Lojas Edu Chaves') {
       setGrupo('chaves');
-    } else if (loja === 'Farmácia') {
+    } else if (loja === 'Farmácias') {
       setGrupo('Farmácia');
-    } else if (loja === 'Mercado') {
+    } else if (loja === 'Mercados') {
       setGrupo('Mercado');
-    } else if (loja === 'Celular') {
+    } else if (loja === 'Celulares') {
       setGrupo('Celular');
     } else if (loja === 'Vestuário') {
       setGrupo('vestuario');
@@ -51,12 +53,12 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-0">
       <div className="w-full pl-24 pr-24 pt-2 pb-2 bg-yellow-400">
-        <Header localLoja={updateSelecao}/>
+        <Header localLoja={updateSelecao} pageLoja={null}/>
       </div>
 
       <div className="z-10 w-full items-start justify-between font-mono text-sm lg:flex flex-row pl-24 pr-24 pt-4 pb-4">
         <div className="bg-green-400 min-h-96 mt-2 w-[25%]">
-        <Categories />
+        <Categories adjustcategoria={updateSelecao} />
         </div>
         <div className="mt-2 w-[75%] ml-2 mr-2">
           <Hero local={loja} />
@@ -69,20 +71,32 @@ export default function Home() {
         </div>
       </div>
       <div className="w-full pl-24 pr-24">
-      <h1 className="bg-gray-500 p-2 text-center text-2xl">Todas as Lojas</h1>
+      <h1 className="bg-gray-500 p-2 text-center text-2xl">Seleção das Lojas</h1>
       </div>
 
 
       <div className="w-full items-center flex flex-row gap-1 m-1 pl-24 pr-24">
+
+      {
+        // testes para encontrar as lojas
+
+        lojasEncontradas.length > 0?(
+          lojasEncontradas.map((lojas) => (
+            // console.log(loja.imageUrl),
+            <div key={lojas.numLoja} className="w-1/4 ">
+              <CardsLojas nome={loja} image={lojas.imageUrl} href={"/page_loja"} numLoja={lojas.numLoja}/>
+            </div>
+          ))
+        ) : (
+          <div className="w-full text-center bg-red-400 p-2 ">
+            <p>Nenhum item corresponde a pesquisa.</p>
+          </div>
+        )
+
+        // testes para encontrar as lojas
         
-        {ListaLojas.map((loja) => (
-          (loja.grupo === grupo || loja.categoria === grupo)? (
-              <div key={loja.numLoja} className="w-1/4 ">
-                <CardsLojas nome={loja.titulo} image={loja.imageUrl} href={"/page_loja"} />
-              </div>
-          ) : null
-          
-        ))}
+      }
+
       </div>
 
       <div className="w-full pl-24 pr-24">
