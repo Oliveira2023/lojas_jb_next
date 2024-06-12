@@ -3,7 +3,7 @@ import Image from "next/image";
 import Categories from "../../components/categories";
 import Hero from "./ui/hero";
 import Footer from "@components/footer";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import CardsLojas from "@components/cards_lojas";
 import FilterStore from "@utils/filterStore";
 import PaginaLoja from "./page_loja/page";
@@ -18,6 +18,26 @@ export default function Home() {
   const [grupo, setGrupo] = useState<string>('roland')
   const filteredLojas = FilterStore(grupo);
   const lojasEncontradas = filteredLojas.lojasEncontradas;
+  const [isOpen, setIsOpen] = useState<boolean>(false);
+  const node = useRef();
+
+  const handleClickOutside = (e) => {
+    if (node.current && node.current.contains(e.target)) {
+      return;
+    }
+    setIsOpen(false);
+  }
+  useEffect(() => {
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  }
 
   useEffect(() => {
 
@@ -34,7 +54,7 @@ export default function Home() {
     } else if (loja === 'Celulares') {
       setGrupo('Celular');
     } else if (loja === 'Vestuário') {
-      setGrupo('vestuario');
+      setGrupo('Vestuario');
     } else if (loja === 'Variedades') {
       setGrupo('variedades');
     } else if (loja === 'Sobre') {
@@ -51,40 +71,42 @@ export default function Home() {
     
   }
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-0">
-      <div className="w-full pl-24 pr-24 pt-2 pb-2 bg-yellow-400">
+    <main className="flex min-h-screen flex-col items-center justify-between p-0 ">
+
+      <div className="absolute top-2 right-0 pr-8" onClick={toggleMenu}>
+          <svg className="menuHidden cursor-pointer" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg>
+      </div>
+
+      <div className="w-full pl-4 pr-4 sm:pl-24 sm:pr-24 pt-2 pb-2 bg-blue-300 sm:bg-yellow-400 ">
         <Header localLoja={updateSelecao} pageLoja={null}/>
       </div>
 
-      <div className="z-10 w-full items-start justify-between font-mono text-sm lg:flex flex-row pl-24 pr-24 pt-4 pb-4">
-        <div className="bg-green-400 min-h-96 mt-2 w-[25%]">
+      <div className="z-10 w-full items-start justify-between font-mono text-sm lg:flex flex-row pl-4 sm:pl-24 pr-4 sm:pr-24 pt-0 sm:pt-4 pb-1">
+        <div ref={node} className={isOpen ? "mt-2 w-3/4 sm:w-[25%] h-[420px] sm:block absolute sm:relative top-8 right-0 z-10" : "hidden"}>
         <Categories adjustcategoria={updateSelecao} />
         </div>
-        <div className="mt-2 w-[75%] ml-2 mr-2">
+        <div className="mt-2 w-full sm:w-[75%] ml-0 sm:ml-2 mr-0 sm:mr-2 h-[auto] sm:h-[420px] bg-orange-400">
           <Hero local={loja} />
         </div>
       </div>
-      <div className="w-full pl-24 pr-24">
+      <div className="w-full pl-4 sm:pl-24 pr-4 sm:pr-24">
         <div>
           <Image src={"/padariaJb-original1200x900.jpg"} width={1200} height={900} alt="banner central"></Image>
           <p className="descript-banner-central">Foto original da padaria jardim Brasil</p>
         </div>
       </div>
-      <div className="w-full pl-24 pr-24">
-      <h1 className="bg-gray-500 p-2 text-center text-2xl">Seleção das Lojas</h1>
+      <div className="w-full pl-4 sm:pl-24 pr-4 sm:pr-24">
+      <h1 className="bg-gray-500 p-2 text-center text-xl sm:text-2xl">Seleção das Lojas</h1>
       </div>
-
-
-      <div className="w-full items-center flex flex-row gap-1 m-1 pl-24 pr-24">
+      <div className="w-full items-center flex flex-row gap-1 m-1 pl-4 sm:pl-24 pr-4 sm:pr-24">
 
       {
         // testes para encontrar as lojas
 
         lojasEncontradas.length > 0?(
           lojasEncontradas.map((lojas) => (
-            // console.log(loja.imageUrl),
-            <div key={lojas.numLoja} className="w-1/4 ">
-              <CardsLojas nome={loja} image={lojas.imageUrl} href={"/page_loja"} numLoja={lojas.numLoja}/>
+            <div key={lojas.numLoja} className="w-1/4">
+              <CardsLojas gruppo={loja} image={lojas.imageUrl} nome={lojas.nomeLoja} numLoja={lojas.numLoja}/>
             </div>
           ))
         ) : (
@@ -96,10 +118,8 @@ export default function Home() {
         // testes para encontrar as lojas
         
       }
-
       </div>
-
-      <div className="w-full pl-24 pr-24">
+      <div className="w-full pl-4 sm:pl-24 pr-4 sm:pr-24">
         <Footer />
       </div>
       <div>

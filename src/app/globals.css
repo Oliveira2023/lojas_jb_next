@@ -20,11 +20,35 @@
 } */
 body {
   color: rgb(var(--foreground-rgb));
-  /* background-color: black; */
+  background-color: rgb(241 245 249);
+  
 }
 .container {
   padding-left: 6rem;
   padding-right: 6rem;
+}
+.categories {
+  background-color: rgb(59 130 246);
+
+}
+.categories:hover {
+ background-color: rgb(254, 254, 254);
+ transform: scale(1.02);
+}
+.showMenu{
+  
+}
+@media screen and (min-width: 641px) {
+  .menuHidden{
+    display: none;
+    background-color: rgb(5, 14, 14);
+  }
+  
+  .showMenu-H{
+    flex-direction: row;
+    display: flex;
+    flex-direction: column;
+  }
 }
 /* body {
   color: rgb(var(--foreground-rgb));

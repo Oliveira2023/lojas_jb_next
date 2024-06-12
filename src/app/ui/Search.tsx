@@ -11,12 +11,9 @@ export default function Search({placeholder}: {placeholder: string}) {
     const [inputtxt, setInputtxt] = useState("");
     const [lojas, setLojas] = useState<any[]>([]);
 
-    // var lojas: any[] = [];
-
     async function handleSearch(term: string){
         setInputtxt(term);
         
-
         try {
             const results = await search(term);
             setLojas(results); // Atualiza o estado das lojas com os resultados da busca
@@ -24,7 +21,6 @@ export default function Search({placeholder}: {placeholder: string}) {
             console.error("Erro ao buscar lojas:", error);
           }
     }
-
     return (
         <>
             <div className='relative flex flex1 flex-shrink-0'>
@@ -39,7 +35,6 @@ export default function Search({placeholder}: {placeholder: string}) {
                 />
                 <MagnifyingGlassIcon className='absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900' />
 
-                {/* <button className='absolute right-0 top-1/2 h-full rounded-md w-[55px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900 bg-fuchsia-400' onClick={() => console.log(inputtxt)}>Buscar</button> */}
             </div>
             <div>
                 {(inputtxt.length > 0 && lojas.length <= 0) && <div className='w-full h-6 bg-fuchsia-400'>Nenhuma loja encontrada</div>}
@@ -48,7 +43,7 @@ export default function Search({placeholder}: {placeholder: string}) {
                 
                 {(lojas.length > 0) && lojas.map((loja) => (
                     <div className='w-1/6' key={loja.numLoja}>
-                        <CardsLojas nome={loja.numLoja} image={loja.imageUrl} href={"/page_loja"}/>
+                        <CardsLojas gruppo={loja.numLoja} image={loja.imageUrl} nome={loja.nomeLoja} numLoja={loja.numLoja}/>
                     </div>
                 ))}
             </div>

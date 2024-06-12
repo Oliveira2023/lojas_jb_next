@@ -32,8 +32,8 @@ export default function Hero({local}: {local: string}) {
     }, [activeImgIndex]);
     return (
         <>
-            <h1 className="bg-gray-500 p-2 text-center text-3xl">{local}</h1>
-            <div className="flex flex-row  bg-blue-500 justify-between">
+            <h1 className="bg-gray-500 p-2 text-center text-1xl sm:text-3xl text-white">{local}</h1>
+            <div className="flex flex-row  bg-blue-500 justify-between mt-1 h-auto sm:h-[370px]">
                 <div className="w-[1280px] m-2 relative">
                     {images.map((image, index) => (
                         <div key={image.Id} className={`${
@@ -59,11 +59,11 @@ export default function Hero({local}: {local: string}) {
                         <Image src={right} width={44} height={44} alt=""></Image>
                     </div>
                 </div>
-                <div className=" bg-yellow-500 w-[450px] m-2 p-0 overflow-hidden relative">
+                <div className=" w-[450px] m-2 p-0 relative ">
                     <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'top', backgroundColor: 'green' }}>
                     <Image src={banerLateral} width={450} height={844} alt="banner lateral"/>
                     </div>
-                    <div>
+                    <div className="border-2 border" style={{height: "50px"}}>
                         <p>descrição banner lateral</p>
                     </div>
                     

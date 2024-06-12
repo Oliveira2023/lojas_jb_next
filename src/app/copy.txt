@@ -1,0 +1,20 @@
+{/*         
+        {ListaLojas.map((loja) => (
+          (loja.grupo === grupo || loja.categoria === grupo)? (
+              <div key={loja.numLoja} className="w-1/4 ">
+                <CardsLojas nome={loja.titulo} image={loja.imageUrl} href={"/page_loja"} />
+              </div>
+          ) : null
+
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Possimus cumque dolores in tempora harum rerum ea! Reiciendis eveniet corporis officia aliquam fugiat. Corporis facilis at saepe ab eveniet, doloremque eum.
+          
+        ))} */}
+
+
+        <nav className={isOpen ? "text-white" : "hidden"} style={{}}></nav>
+
+pendencias:
+gerador de cupons
+carregamento favico
+chaves .env
+pagina sobre
