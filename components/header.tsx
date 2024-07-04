@@ -4,17 +4,22 @@ import { useEffect, useState } from "react";
 import { sedan } from "@/app/ui/fonts";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function Header({localLoja, pageLoja}: {localLoja: any, pageLoja: string | null}) {
 
+  const router = useRouter();
+
+  const handleNavigate = () => {
+    router.push('/');
+  };
+
     const [loja, setLoja] = useState<string>('Lojas Roland Garros')
-    const [lojaPage, setLojaPage] = useState<string>('')
-    
-
-
+    // const [lojaPage, setLojaPage] = useState<string>('')
 
     useEffect(() =>{
       localLoja(loja);
+      // console.log("useEffect de atualizar loja")
     },[loja])
     
    
@@ -22,9 +27,8 @@ export default function Header({localLoja, pageLoja}: {localLoja: any, pageLoja:
       <>
         <div className={`${sedan.className} flex flex-col sm:flex-row p-0 justify-between`}>
 
-
-
           <div className={pageLoja !== null ? 'bg-green-500 rounded-md' : "w-2/3 sm:w-1/3 flex rounded-md text-xl bg-green-500"} style={{marginBottom: '0.5rem'}}>
+          {/* icone casa-home para voltar ao inicio */}
               <Link href={"/"}><Image src="/home_24dp_FILL0_wght400_GRAD0_opsz24.svg" width={30} height={30} alt="logo"/></Link>
             <select className={pageLoja !== null ? "hidden" : "w-full text-black text-lg sm:text-xl py-1 rounded-md"} name="lojas" onChange={(e) => 
                 setLoja(e.target.value)
@@ -43,6 +47,8 @@ export default function Header({localLoja, pageLoja}: {localLoja: any, pageLoja:
           <ul className="flex flex-row items-start sm:items-center justify-between">
             <li className="text-lg sm:text-2xl font-light hover:scale-110 cursor-pointer" onClick={() => {
               setLoja('Farmácias');
+              handleNavigate();
+              
             }}>Farmácia</li>
             <li className="text-lg sm:text-2xl font-light hover:scale-110 cursor-pointer" onClick={() => {
               setLoja('Mercados');
@@ -57,8 +63,8 @@ export default function Header({localLoja, pageLoja}: {localLoja: any, pageLoja:
               setLoja('Variedades');
             }}>Variedades</li> */}
             <li className="text-lg sm:text-2xl font-light hover:scale-110 cursor-pointer" onClick={() => {
-              setLoja('Sobre');
-            }}>Sobre</li>
+              setLoja('Óticas');
+            }}>Ótica</li>
           </ul>
         </nav>
       </>
