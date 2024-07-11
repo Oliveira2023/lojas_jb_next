@@ -4,8 +4,8 @@ import Image from "next/image";
 export default function Footer() {
     return (
         <>
-            <div className="flex flex-col sm:flex-row justify-between text-sm w-full" >
-                <div className="w-full sm:w-1/3 p-2 border border-black">
+            <div className="flex flex-col sm:flex-row justify-between text-sm w-full bg-slate-50" >
+                <div className="w-full sm:w-1/3 p-2 border border-black ">
                     <h2 className="text-center text-xl">As lojas</h2>
                     <p className="">
                         O projeto tem a finalidade de reunir o comércio local e integra as seguintes avenidas principais:

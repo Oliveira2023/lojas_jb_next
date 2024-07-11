@@ -26,7 +26,7 @@ export default function Search({placeholder}: {placeholder: string}) {
             <div className='relative flex flex1 flex-shrink-0'>
                 <label htmlFor="search" className='sr-only'>Search</label>
                 <input
-                className='w-full rounded-md border border-gray-200 py-1 pl-10 text-xl text-neutral-950 placeholder:text-gray-400'
+                className='w-full rounded-md border border-gray-200 py-1 pl-10 text-lg text-neutral-950 placeholder:text-gray-400'
                 placeholder={'Buscar pelas melhores lojas'}
                 onChange={(e) => handleSearch(e.target.value)}
                 defaultValue={inputtxt}

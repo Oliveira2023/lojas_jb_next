@@ -11,6 +11,7 @@ import Header from "@components/header";
 import GoTopButton from "@components/goTopButton";
 import { ListaLojas } from "@utils/listaLojas";
 // import selectStreet from "@utils/streetSelection";
+import manageHight from "@utils/manageHight";
 
 export default function Home() {
 
@@ -20,7 +21,8 @@ export default function Home() {
   const lojasEncontradas = filteredLojas.lojasEncontradas;
   const [isOpen, setIsOpen] = useState<boolean>(true);
   const node: any = useRef(null);
-
+  const [teste, updateTeste] = useState<number>(0);
+  
   // erro de desaparecer as categorias**
   // const handleClickOutside = (e: any) => {
   //   if (node.current && node.current.contains(e.target)) {
@@ -36,20 +38,22 @@ export default function Home() {
   //     console.log("evento removido")
   //    };
   // }, []);
-
+  
   useEffect(() => {
     // Detectar o tamanho da tela e atualizar isMenuOpen conforme necessário
+    console.log("useEffect page")
+
     const handleResize = () => {
       setIsOpen(window.innerWidth > 768); // Exemplo: 768px como limite para desktop
     };
 
     window.addEventListener('resize', handleResize);
     handleResize(); // Verificar o tamanho inicial da tela
-
     return () => {
       window.removeEventListener('resize', handleResize);
     };
   }, []);
+
 
   const toggleMenu = () => {
     console.log("Toggling menu", isOpen);
@@ -90,27 +94,32 @@ export default function Home() {
 
   const updateSelecao = (selecao: string) => {
     updateLoja(selecao)
-    
   }
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-0 ">
       {/* menu dispositivos moveis -icone */}
       <div className="absolute top-2 right-0 pr-8" onClick={toggleMenu}>
-          <svg className="menuHidden cursor-pointer" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg>
+          <svg className="menuHidden cursor-pointer" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg>
       </div>
 
-      <div className="w-full pl-4 pr-4 sm:pl-24 sm:pr-24 pt-2 pb-2 bg-blue-300 sm:bg-yellow-400 ">
+      <div className="w-full pl-4 pr-4 sm:pl-24 sm:pr-24 pt-2 pb-2 sm:bg-yellow-400 ">
         <Header localLoja={updateSelecao} pageLoja={null}/>
       </div>
-      {/* menu das categorias fechado para celulares - lateral para desktop */}
-      <div className="z-10 w-full items-start justify-between font-mono text-sm lg:flex flex-row pl-4 sm:pl-24 pr-4 sm:pr-24 pt-0 sm:pt-4 pb-1">
-        <div ref={node} className= {isOpen ? 'block mt-2 w-3/4 sm:w-[25%] h-[420px] sm:block absolute sm:relative md:top-0 top-8 right-0 z-10' : 'hidden'}>
-        <Categories adjustcategoria={updateSelecao} />
+
+      {/* container categorias e banners */}
+      <div className="z-1 w-full items-start justify-between font-mono text-sm flex flex-row pl-4 sm:pl-24 pr-4 sm:pr-24 pt-0 pb-1 ">
+        {/* menu das categorias fechado para celulares - lateral para desktop */}
+        <div ref={node} className= {isOpen ? 'z-10 child-hero mt-2 w-[35%] sm:w-[25%] absolute sm:static top-8 right-8' : 'hidden'}>
+          <Categories adjustcategoria={updateSelecao} />
         </div>
-        <div className="mt-2 w-full sm:w-[75%] ml-0 sm:ml-2 mr-0 sm:mr-2 h-[auto] sm:h-[420px] bg-orange-400">
+
+        {/* banner central da pagina - carrousel */}
+        <div className="mt-2 w-full h-[auto] ml-0 sm:ml-0 mr-0 sm:mr-0 pb-1">
           <Hero local={loja} />
         </div>
       </div>
+
       <div className="w-full pl-4 sm:pl-24 pr-4 sm:pr-24">
         <div>
           <Image src={"/padariaJb-original1200x900.jpg"} width={1200} height={900} alt="banner central"></Image>
@@ -141,7 +150,7 @@ export default function Home() {
         
       }
       </div>
-      <div className="w-full pl-4 sm:pl-24 pr-4 sm:pr-24">
+      <div className="w-full pl-4 sm:pl-24 pr-4 sm:pr-24 mb-3">
         <Footer />
       </div>
       <div>

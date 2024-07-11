@@ -1,5 +1,5 @@
 import connectToDb from "@utils/conectDB";
-import connectToDatabase from "@utils/mongoC";
+import connectToDatabase from "@utils/mongoConnect";
 
 const {MongoClient} = require("mongodb")
 
