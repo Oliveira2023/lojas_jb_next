@@ -52,6 +52,9 @@ body {
     display: flex;
     flex-direction: column;
   }
+  .homecircle {
+    width: 50px;
+  }
 
 }
 

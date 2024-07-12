@@ -22,8 +22,10 @@ export default function CardsLojas({ gruppo, image, nome, numLoja }: CardsLojasP
                 <Link href={{pathname: "/page_loja", query: {loja: numLoja, grupo: gruppo}}}>
                     <Image className="" src={image} width={1000} height={1000} alt={nome}/>
                 </Link>
-                {isHovered && <p className="text-center absolute bottom-0 left-1/2 w-full z-10" style={{background: 'rgba(0, 0, 0, 0.5)', color: 'white', padding: '5px', borderRadius: '5px', transform: 'translate(0,-100%)', fontSize: "1vw"}}>{nome}</p>}
+                
             </div>
+            {isHovered && <Link href={{pathname: "/page_loja", query: {loja: numLoja, grupo: gruppo}}}>
+                <p className="text-sm text-center absolute bottom-0 left-1/2 w-[auto] z-10 text-wrap" style={{background: 'rgba(0, 0, 0, 0.8)', color: 'white', padding: '2px', borderRadius: '5px', transform: 'translate(0,-20%)', overflowX: "hidden"}}>{nome}</p></Link>}
         </>       
     )
 }

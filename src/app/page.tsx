@@ -94,6 +94,7 @@ export default function Home() {
 
   const updateSelecao = (selecao: string) => {
     updateLoja(selecao)
+    
   }
 
   return (
@@ -111,7 +112,7 @@ export default function Home() {
       <div className="z-1 w-full items-start justify-between font-mono text-sm flex flex-row pl-4 sm:pl-24 pr-4 sm:pr-24 pt-0 pb-1 ">
         {/* menu das categorias fechado para celulares - lateral para desktop */}
         <div ref={node} className= {isOpen ? 'z-10 child-hero mt-2 w-[35%] sm:w-[25%] absolute sm:static top-8 right-8' : 'hidden'}>
-          <Categories adjustcategoria={updateSelecao} />
+          <Categories adjustcategoria={updateSelecao} categoriaHome={loja}/>
         </div>
 
         {/* banner central da pagina - carrousel */}

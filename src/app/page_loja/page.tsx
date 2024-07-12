@@ -1,4 +1,5 @@
 'use client'
+
 import Header from "@components/header"
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
@@ -8,14 +9,14 @@ import Maps from "@components/maps";
 import Link from "next/link";
 import Footer from "@components/footer";
 
-
-
-
 export default function PaginaLoja({image}: any) {
+
 
     const searchParams = useSearchParams();
     const search = searchParams.get('loja');
     const grupo = searchParams.get('grupo');
+
+    console.log("Grupo:",grupo);
 
     let imageUrl;
     let descricao;
@@ -30,22 +31,21 @@ export default function PaginaLoja({image}: any) {
         }
     })
     const [loja, updateLoja] = useState<string>('')
-    const [isMobile, setIsMobile] = useState<boolean>(false)
+    // const [isMobile, setIsMobile] = useState<boolean>(false)
 
-    // useEffect(() => {
-    // },[])
     const updateSelecao = (resultado: string) => {
         updateLoja(resultado)
     }
     // window.innerWidth < 640 ? setIsMobile(true) : setIsMobile(false)
-    console.log(isMobile)
+    // console.log(isMobile)
 
     return (
         <>
             <div className="w-full pl-4 sm:pl-24 pr-4 sm:pr-24 pt-2 pb-2 bg-yellow-400" >
-                <Header localLoja={updateSelecao} pageLoja={grupo} />
+
+                    <Header localLoja={updateSelecao} pageLoja={grupo} />
+
             </div>
-            {/* <h1>Pagina Loja {loja}</h1> */}
             <div className="flex flex-col sm:flex-row pl-4 sm:pl-24 pr-4 sm:pr-24 gap-2 items-center mt-4">
                 <div className="w-full sm:w-1/3">
                         <Image src={imageUrl? imageUrl : "/next.svg"} width={1000} height={1000} alt={"imagem da loja"}></Image>

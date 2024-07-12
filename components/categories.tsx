@@ -1,38 +1,42 @@
 
-import Style from "ol/style/Style";
-import { useEffect, useLayoutEffect, useState } from "react";
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import manageHight from "@utils/manageHight";
-export default function Categories({adjustcategoria}: any) {
+export default function Categories({adjustcategoria, categoriaHome}: any) {
 
     const [categoria, updateCategoria] = useState<string>('Lojas Roland Garros')
-
-    // useEffect(() => {
-        
-    // }) 
-    //[categoria]
-
+    console.log("categoria", categoria);
+   
     const [altura, updateAltura] = useState<number>(270); 
-
-    const testeWindow = () => {
-        console.log("testeWindow");
+    
+    function handleSelect(e: any) {
+        updateCategoria(e);
+        adjustcategoria(e);
+        console.log("handleSelect:", e);
     }
+
     const handleHight =  () => {
-        
         var data =  manageHight();
         updateAltura(data);
         console.log("retorno altura", data);
     }
-
     useEffect(() => {
-        console.log("useEffect categories")
-        adjustcategoria(categoria);
-        window.addEventListener('resize', handleHight);
         handleHight();
+        window.addEventListener('resize', handleHight);
         return () => {
             window.removeEventListener('resize', handleHight);
-            // window.removeEventListener('load', handleHight);
         }
-    },[])
+    }, []);
+
+    // useEffect(() => {
+    //     console.log("useEffect categories")
+    //     adjustcategoria(categoria);
+    //     window.addEventListener('resize', handleHight);
+    //     handleHight();
+    //     return () => {
+    //         window.removeEventListener('resize', handleHight);
+    //         // window.removeEventListener('load', handleHight);
+    //     }
+    // }, [categoria]);
 
     return (
         <div className="p-0">
@@ -41,13 +45,13 @@ export default function Categories({adjustcategoria}: any) {
                 <ul className="">
                     {/* o que vai escrito sobre o hero é nome do updateCategoria(este nome) */}
                     <li className="categories p-2 text-2xl">
-                        <button className="w-full" onClick={() => updateCategoria('Farmácias')}>Farmácia</button>
+                        <button className="w-full" onClick={() => handleSelect('Farmácias')}>Farmácia</button>
                     </li>
                     <li className="categories p-2 text-2xl">
-                        <button className="w-full" onClick={() => updateCategoria('Mercados')}>Mercado</button>
+                        <button className="w-full" onClick={() => handleSelect('Mercados')}>Mercado</button>
                     </li>
                     <li className="categories p-2 text-2xl">
-                        <button className="w-full" onClick={() => updateCategoria('Óticas')}>Óticas</button>
+                        <button className="w-full" onClick={() => handleSelect('Óticas')}>Óticas</button>
                     </li>
                     <li className="categories p-2 text-2xl">
                         <button className="w-full" onClick={() => updateCategoria('Vestuário')}>Vestuário</button>
