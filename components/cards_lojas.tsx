@@ -1,7 +1,5 @@
 import Image from "next/image";
 import Link from 'next/link'
-import { usePathname } from "next/navigation";
-import { translate } from "ol/transform";
 import { useState } from "react";
 
 type CardsLojasProps = {
