@@ -60,7 +60,9 @@ export default function Home() {
     setIsOpen(!isOpen);
     console.log("isOpen:", isOpen);
   }
-
+  // seleção da catetorias
+  // Grupo selecionado no select das avenidas ou nas categorias
+  // updateselecao recebe a cagegoria atualizando a selecao atualiza o grupo
   useEffect(() => {
 
     if (loja === 'Lojas Roland Garros') {
@@ -70,7 +72,7 @@ export default function Home() {
     } else if (loja === 'Lojas Edu Chaves') {
       setGrupo('chaves');
     } else if (loja === 'Farmácias') {
-      setGrupo('Farmácia');
+      setGrupo('Farmacia');
     } else if (loja === 'Mercados') {
       setGrupo('Mercado');
     } else if (loja === 'Celulares') {
@@ -80,17 +82,21 @@ export default function Home() {
     } else if (loja === 'Variedades') {
       setGrupo('variedades');
     } else if (loja === 'Óticas') {
-      setGrupo('Óticas');
-    } else if (loja === "Contrução") {
-      setGrupo('Construção');
+      setGrupo('Otica');
+    } else if (loja === "Construção") {
+      setGrupo('Construcao');
+    } else if (loja === "Salão de Beleza") {
+      setGrupo('Beleza');
+    } else if (loja === "Avículas") {
+      setGrupo('Avicula');
     }
   }, [loja])
 
-  useEffect(() => {
-    console.log("grupo atualizado: " + grupo);
+  // useEffect(() => {
+  //   console.log("grupo atualizado: " + grupo);
     
-    setIsOpen(window.innerWidth > 768);
-  }, [grupo]);
+  //   setIsOpen(window.innerWidth > 768);
+  // }, [grupo]);
 
   const updateSelecao = (selecao: string) => {
     updateLoja(selecao)
@@ -124,20 +130,20 @@ export default function Home() {
       <div className="w-full pl-4 sm:pl-24 pr-4 sm:pr-24">
         <div>
           <Image src={"/padariaJb-original1200x900.jpg"} width={1200} height={900} alt="banner central"></Image>
-          <p className="descript-banner-central">Foto original da padaria jardim Brasil</p>
+          <p className="descript-banner-central">Padaria jardim Brasil - Tradição desde 1956</p>
         </div>
       </div>
       <div className="w-full pl-4 sm:pl-24 pr-4 sm:pr-24">
       <h1 className="bg-gray-500 p-2 text-center text-xl sm:text-2xl">Seleção das Lojas</h1>
       </div>
-      <div className="w-full items-center flex flex-row gap-1 m-1 pl-4 sm:pl-24 pr-4 sm:pr-24">
+      <div id="cards" className="w-full items-center grid grid-cols-5 flex-row gap-1 m-1 pl-4 sm:pl-24 pr-4 sm:pr-24">
 
       {
         //  para encontrar as lojas
 
         lojasEncontradas.length > 0?(
           lojasEncontradas.map((lojas) => (
-            <div key={lojas.numLoja} className="w-1/4">
+            <div key={lojas.numLoja} className="w-[100%]">
               <CardsLojas gruppo={loja} image={lojas.imageUrl} nome={lojas.nomeLoja} numLoja={lojas.numLoja}/>
             </div>
           ))

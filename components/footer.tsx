@@ -23,13 +23,13 @@ export default function Footer() {
                 <div className="w-full sm:w-1/3 p-2 border border-black">
                     <h2 className="text-center text-xl">Encontre-nos</h2>
                     <div className="flex flex-row justify-around p-2">
-                        <Link href={""} target="_blank">
+                        <Link href={"https://www.instagram.com/luciano.oliveira.3154284/"} target="_blank">
                                 <Image src={"/instagram-40P.png"} width={40} height={40} alt="icone whatsapp"></Image>
                         </Link>
-                        <Link href={"https://wa.me/11963691532"}>
+                        <Link href={"https://wa.me/5511963591532"} target="_blank">
                             <Image src={"/whatsapp-33P.png"} width={40} height={40} alt="icone whatsapp"></Image>
                         </Link>
-                        <Link href={""}>
+                        <Link href={"https://www.linkedin.com/in/luciano-oliveira-87a17682/"} target="_blank">
                             <Image src={"/linkedin.png"} width={40} height={40} alt="icone whatsapp"></Image>
                         </Link>
                     </div>

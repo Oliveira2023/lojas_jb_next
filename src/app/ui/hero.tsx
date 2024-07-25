@@ -82,7 +82,7 @@ export default function Hero({local}: {local: string}) {
                     <Image className="object-fill" src={banerLateral} width={450} height={844} alt="banner lateral"/>
                     </div>
                     <div className="border-2" style={{height: "50px"}}>
-                        <p>banner lateral</p>
+                        <p>Meg´s Perfumaria</p>
                     </div>
                     
                 </div>
