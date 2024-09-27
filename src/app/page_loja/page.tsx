@@ -22,12 +22,21 @@ export default function PaginaLoja({image}: any) {
     let descricao;
     let titulo;
     let buscaMapa;
+    let telefone;
+    let whatsapp;
+    let linkInstagram = "/";
+    let site;
+
     ListaLojas.map((loja)=>{
         if (search == loja.numLoja){
             imageUrl= loja.imageUrl
             descricao = loja.descricao
             titulo = loja.nomeLoja
             buscaMapa = loja.mapa
+            telefone = loja.telefone
+            whatsapp = loja.whatsapp
+            linkInstagram = loja.linkInstagram
+            site = loja.site
         }
     })
     const [loja, updateLoja] = useState<string>('')
@@ -63,7 +72,7 @@ export default function PaginaLoja({image}: any) {
                     <h2 className="text-center text-xl">Entre em contato conosco</h2>
                     <div>
                         <div className="flex flex-row justify-around w-full">
-                            <Link href={"/"} className="hover:scale-110">
+                            <Link href={`https://wa.me/${whatsapp}`} className="hover:scale-110" target="_blank">
                                 <Image src={"/whatsapp-33P.png"} width={60} height={60} alt="icone whatsapp"></Image>
                             </Link>
 
@@ -72,7 +81,7 @@ export default function PaginaLoja({image}: any) {
                                 <button className="w-2/3 rounded text-lg sm:text-3xl text-white">Telefone</button>
                             </div>
 
-                            <Link href={"/"} className="hover:scale-110">
+                            <Link href={linkInstagram} className="hover:scale-110" target="_blank">
                                 <Image src={"/instagram-40P.png"} width={60} height={60} alt="icone whatsapp"></Image>
                             </Link>
                         </div>

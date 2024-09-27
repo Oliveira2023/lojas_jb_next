@@ -25,6 +25,6 @@
       "@pages/*": ["./pages/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/api/page.tsx", "utils/mongoConnect.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/api/page.tsx", "utils/mongoConnect.ts", "utils/fetchLojas.js", "utils/manipulaMongoTeste.js", "utils/mongoConfig.js"],
   "exclude": ["node_modules, .env.development"]
 }
