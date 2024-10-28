@@ -4,7 +4,9 @@
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
-    "noEmit": true,
+    "noEmit": false,
+    "outDir": "./dist",
+    "target": "ESNext",
     "esModuleInterop": true,
     "module": "esnext",
     "moduleResolution": "bundler",
@@ -25,6 +27,6 @@
       "@pages/*": ["./pages/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/api/page.tsx", "utils/mongoConnect.ts", "utils/fetchLojas.js", "utils/manipulaMongoTeste.js", "utils/mongoConfig.js"],
-  "exclude": ["node_modules, .env.development"]
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/sendMail/page.tsx", "utils/mongoConnect.ts", "utils/fetchLojas.js", "utils/manipulaMongoTeste.js", "utils/mongoConfig.js", "src/app/config/envConfig.ts", "next.config.ts"],
+  "exclude": ["node_modules", ".env.development", "dist"]
 }

@@ -13,6 +13,10 @@
 
         <nav className={isOpen ? "text-white" : "hidden"} style={{}}></nav>
 
+    experimental: {
+    missingSuspenseWithCSRBailout: false,
+  },
+
 pendencias:
 gerador de cupons
 carregamento favico

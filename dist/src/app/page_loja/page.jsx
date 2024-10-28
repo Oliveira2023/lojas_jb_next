@@ -1,90 +1,77 @@
-'use client'
-
-import Header from "@components/header"
+'use client';
+import Header from "@components/header";
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
 import { ListaLojas } from "@utils/listaLojas";
-import { Suspense, use, useEffect, useState } from "react"
+import { useEffect, useState } from "react";
 import Maps from "@components/maps";
 import Link from "next/link";
 import Footer from "@components/footer";
-
-
-
 export default function PaginaLoja() {
-    const [mapsApiKey, setMapsApiKey] = useState<string | null>(null);
+    const [mapsApiKey, setMapsApiKey] = useState(null);
     const searchParams = useSearchParams();
     const search = searchParams.get('loja');
     const grupo = searchParams.get('grupo');
-
     useEffect(() => {
         async function getMapsApiKey() {
-            const response = await fetch('/api/getMapsApiKeys');
-            if (!response.ok) {
-                console.error("Failed to fetch maps api key");
-                return;
-            }
+            console.log("fetching maps api key");
+            const response = await fetch('/api/getMapsApiKey');
             const data = await response.json();
-            setMapsApiKey(data.apiKey);           
+            setMapsApiKey(data.apiKey);
         }
         getMapsApiKey();
     }, []);
-
-    console.log("Grupo:",grupo);
-
+    console.log("Grupo:", grupo);
     let imageUrl;
     let descricao;
     let titulo;
     let buscaMapa;
-    let telefone : string;
+    let telefone;
     let whatsapp;
     let linkInstagram = "/";
     let site;
-    let email : string = '';
-
-    ListaLojas.map((loja)=>{
-        if (search == loja.numLoja){
-            imageUrl= loja.imageUrl
-            descricao = loja.descricao
-            titulo = loja.nomeLoja
-            buscaMapa = loja.mapa
-            telefone = loja.telefone || "Telefone não disponível"
-            whatsapp = loja.whatsapp
-            linkInstagram = loja.linkInstagram
-            site = loja.site
-            email = "luciano.oliveira9603@gmail.com"
+    let email = '';
+    ListaLojas.map((loja) => {
+        if (search == loja.numLoja) {
+            imageUrl = loja.imageUrl;
+            descricao = loja.descricao;
+            titulo = loja.nomeLoja;
+            buscaMapa = loja.mapa;
+            telefone = loja.telefone || "Telefone não disponível";
+            whatsapp = loja.whatsapp;
+            linkInstagram = loja.linkInstagram;
+            site = loja.site;
+            email = "luciano.oliveira9603@gmail.com";
         }
-    })
-    const [loja, updateLoja] = useState<string>('')
-
-    const updateSelecao = (resultado: string) => {
-        updateLoja(resultado)
-    }
-
+    });
+    const [loja, updateLoja] = useState('');
+    const updateSelecao = (resultado) => {
+        updateLoja(resultado);
+    };
     const showTelefone = () => {
         const phoneImage = document.getElementById('phoneImage');
         const telefoneButton = document.getElementById('telefone');
-        if (telefoneButton?.innerHTML == 'Telefone'){ 
-            if (phoneImage) phoneImage.className = 'hidden';
+        if (telefoneButton?.innerHTML == 'Telefone') {
+            if (phoneImage)
+                phoneImage.className = 'hidden';
             telefoneButton.innerHTML = telefone;
-        }else {
+        }
+        else {
             if (telefoneButton) {
-                if (phoneImage) phoneImage.className = '';
+                if (phoneImage)
+                    phoneImage.className = '';
                 telefoneButton.innerHTML = 'Telefone';
             }
-        }   
-    }
+        }
+    };
     const getCupons = async () => {
-        
-        let divCupons = document.querySelector('.cupons')
-
-        if (true){ //verificar se a loja tem cupons
+        let divCupons = document.querySelector('.cupons');
+        if (true) { //verificar se a loja tem cupons
             let desconto = Math.floor(Math.random() * 26) + 5;
-            divCupons ? divCupons.innerHTML = `Você ganhou <b>${desconto}% de desconto</b> em sua compra` : ""
+            divCupons ? divCupons.innerHTML = `Você ganhou <b>${desconto}% de desconto</b> em sua compra` : "";
             // divCupons?.toggleAttribute('disabled');
             let codigoCupom = Math.random().toString(36).substring(2, 15);
-            divCupons ? divCupons.innerHTML += `<p>Use o cupom: ${codigoCupom}</p>` : ""
-
+            divCupons ? divCupons.innerHTML += `<p>Use o cupom: ${codigoCupom}</p>` : "";
             try {
                 const response = await fetch('/sendMail', {
                     method: 'POST',
@@ -98,29 +85,29 @@ export default function PaginaLoja() {
                     }),
                 });
                 if (response.ok) {
-                    console.log("Email enviado com sucesso")
-                }else {
-                    console.log("Erro ao enviar email no response not ok")
+                    console.log("Email enviado com sucesso");
                 }
-            }catch (error){
-                console.log("Erro ao enviar email no catch")
+                else {
+                    console.log("Erro ao enviar email no response not ok");
+                }
             }
-
-        }else {
-            alert("Cupons não disponíveis para esta loja")
+            catch (error) {
+                console.log("Erro ao enviar email no catch");
+            }
         }
-    }
+        else {
+            alert("Cupons não disponíveis para esta loja");
+        }
+    };
+    return (<>
+            <div className="w-full pl-4 sm:pl-24 pr-4 sm:pr-24 pt-2 pb-2 bg-yellow-400">
 
-    return (
-        <>
-            <div className="w-full pl-4 sm:pl-24 pr-4 sm:pr-24 pt-2 pb-2 bg-yellow-400" >
-
-                    <Header localLoja={updateSelecao} pageLoja={grupo} />
+                    <Header localLoja={updateSelecao} pageLoja={grupo}/>
 
             </div>
             <div className="flex flex-col sm:flex-row pl-4 sm:pl-24 pr-4 sm:pr-24 gap-2 items-center mt-4">
                 <div className="w-full sm:w-1/3">
-                        <Image src={imageUrl? imageUrl : "/next.svg"} width={1000} height={1000} alt={"imagem da loja"}></Image>
+                        <Image src={imageUrl ? imageUrl : "/next.svg"} width={1000} height={1000} alt={"imagem da loja"}></Image>
                     </div>
                     <div className="w-full sm:w-2/3 p-1 text-justify">
                         <h1 className="text-3xl">{titulo}</h1>
@@ -169,33 +156,32 @@ export default function PaginaLoja() {
                 <p className="text-center">Principais produtos da loja:</p>
                 <ul className=" bg-slate-300 grid grid-cols-2 sm:grid-cols-4 w-full justify-center gap-0 items-center">
                     <li className="w-auto sm:w-52 p-2 m-1 bg-blue-500"> 
-                        <Image src={"/camera500.jpg"} width={500} height={500} alt={"imagem da loja"} />
+                        <Image src={"/camera500.jpg"} width={500} height={500} alt={"imagem da loja"}/>
                     <p className="text-center">produto1</p>
                     </li>
                     <li className="w-auto sm:w-52 p-2 m-1 bg-blue-500">
-                        <Image src={"/camera500.jpg"} width={500} height={500} alt={"imagem da loja"} />
+                        <Image src={"/camera500.jpg"} width={500} height={500} alt={"imagem da loja"}/>
                         <p className="text-center">produto2</p>
                     </li>
                     <li className="w-auto sm:w-52 p-2 m-1 bg-blue-500"> 
-                        <Image src={"/camera500.jpg"} width={500} height={500} alt={"imagem da loja"} />
+                        <Image src={"/camera500.jpg"} width={500} height={500} alt={"imagem da loja"}/>
                     <p className="text-center">produto3</p>
                     </li>
                     <li className="w-auto sm:w-52 p-2 m-1 bg-blue-500"> 
-                        <Image src={"/camera500.jpg"} width={500} height={500} alt={"imagem da loja"} />
+                        <Image src={"/camera500.jpg"} width={500} height={500} alt={"imagem da loja"}/>
                     <p className="text-center">produto4</p>
                     </li>
                     <li className="w-auto sm:w-52 p-2 m-1 bg-blue-500"> 
-                        <Image src={"/camera500.jpg"} width={500} height={500} alt={"imagem da loja"} />
+                        <Image src={"/camera500.jpg"} width={500} height={500} alt={"imagem da loja"}/>
                     <p className="text-center">produto4</p>
                     </li>
                     <li className="w-auto sm:w-52 p-2 m-1 bg-blue-500"> 
-                        <Image src={"/camera500.jpg"} width={500} height={500} alt={"imagem da loja"} />
+                        <Image src={"/camera500.jpg"} width={500} height={500} alt={"imagem da loja"}/>
                     <p className="text-center">produto4</p>
                     </li>
                 </ul>
             </div>
-            <div className="pl-4 sm:pl-24 pr-4 sm:pr-24 mt-1 mb-1"><Footer/></div>
+            <div className="pl-4 sm:pl-24 pr-4 sm:pr-24 mt-1 mb-1"><Footer /></div>
 
-        </>
-    )
+        </>);
 }
