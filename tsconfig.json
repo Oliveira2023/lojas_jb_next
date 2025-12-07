@@ -27,6 +27,6 @@
       "@pages/*": ["./pages/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/sendMail/page.tsx", "utils/mongoConnect.ts", "utils/fetchLojas.js", "utils/manipulaMongoTeste.js", "utils/mongoConfig.js", "src/app/config/envConfig.ts", "next.config.ts"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/sendMail/page.tsx", "utils/mongoConnect.ts", "utils/fetchLojas.js", "utils/manipulaMongoTeste.js", "utils/mongoConfig.js", "src/app/config/envConfig.ts", "next.config.mjs"],
   "exclude": ["node_modules", ".env.development", "dist"]
 }

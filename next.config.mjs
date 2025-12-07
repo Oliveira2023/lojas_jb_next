@@ -1,8 +1,8 @@
 /** @type {import('next').NextConfig} */
-import './src/app/config/envConfig';
 const nextConfig = {
-    
-
+    experimental: {
+        missingSuspenseWithCSRBailout: false,
+      },
 };
 
 export default nextConfig;
