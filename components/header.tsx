@@ -26,7 +26,7 @@ export default function Header({localLoja, pageLoja}: {localLoja: any, pageLoja:
       <>
         <div className={`${sedan.className} flex flex-col sm:flex-row p-0 justify-between`}>
 
-          <div className={pageLoja !== null ? 'rounded-md' : "w-2/3 sm:w-1/3 flex rounded-md text-lg bg-green-500"} style={{marginBottom: '0.5rem'}}>
+          <div className={pageLoja !== null ? 'rounded-md ' : "h-10 w-2/3 sm:w-1/3 flex rounded-md text-lg bg-green-500 items-center"} style={{marginBottom: '0.5rem'}}>
           {/* icone casa-home para voltar ao inicio */}
 
                 <Link className="w-14" href={"/"}>
@@ -41,7 +41,8 @@ export default function Header({localLoja, pageLoja}: {localLoja: any, pageLoja:
               <option className="text-black" value="Lojas Edu Chaves">Lojas Edu Chaves</option>
             </select>
           </div>
-          <div className='w-2/5 sm:w-1/3 md:w-2/5'>
+          
+          <div className='w-2/5 sm:w-1/3 md:w-2/5 h-10'>
               <Search placeholder= "Buscar pelas melhores lojas" />
           </div>
         </div>

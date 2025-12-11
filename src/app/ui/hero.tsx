@@ -43,12 +43,12 @@ export default function Hero({local}: {local: string}) {
       }
     return (
         <>
-            <h1 className="bg-gray-500 flex items-center justify-center text-1xl sm:text-3xl text-white h-10 border">{local}</h1>
+            <h1 className="bg-[#3B9F4E] mx-1 flex items-center justify-center text-1xl sm:text-3xl text-white h-10 border">{local}</h1>
             {/*  carrousel + banner lateral */}
             <div id="hero" className="flex flex-row justify-between ">
                 
                 {/* div carrousel */}
-                <div className="m-1 w-[75%] relative">
+                <div className="m-1 w-[100%] relative">
                     {images.map((image, index) => (
                         <div key={image.Id} className={`${
                             index === activeImgIndex ? "block w-full bg-slate-50": "hidden"}`}>
@@ -77,7 +77,7 @@ export default function Hero({local}: {local: string}) {
                     </div>
                 </div>
                 {/* div banner lateral */}
-                <div className="flex flex-col justify-between w-[25%] mt-0 p-1">
+                {/* <div className="flex flex-col justify-between w-[25%] mt-0 p-1">
                     <div className="flex-1" style={{  }}>
                     <Image className="object-fill" src={banerLateral} width={450} height={844} alt="banner lateral"/>
                     </div>
@@ -85,7 +85,7 @@ export default function Hero({local}: {local: string}) {
                         <p>Meg´s Perfumaria</p>
                     </div>
                     
-                </div>
+                </div> */}
             </div>
         </>
 

@@ -12,6 +12,7 @@ import GoTopButton from "@components/goTopButton";
 import { ListaLojas } from "@utils/listaLojas";
 // import selectStreet from "@utils/streetSelection";
 import manageHight from "@utils/manageHight";
+import Produtos from "@components/Produtos";
 
 export default function Home() {
 
@@ -110,27 +111,31 @@ export default function Home() {
           <svg className="menuHidden cursor-pointer" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg>
       </div>
 
-      <div className="w-full pl-4 pr-4 sm:pl-24 sm:pr-24 pt-2 pb-2 sm:bg-yellow-400 ">
+      <div className="header-container w-full pl-4 pr-4 sm:pl-24 sm:pr-24 pt-2 pb-2 bg-[#6B6E4F] ">
         <Header localLoja={updateSelecao} pageLoja={null}/>
       </div>
-
+      
       {/* container categorias e banners */}
       <div className="z-1 w-full items-start justify-between font-mono text-sm flex flex-row pl-4 sm:pl-24 pr-4 sm:pr-24 pt-0 pb-1 ">
         {/* menu das categorias fechado para celulares - lateral para desktop */}
-        <div ref={node} className= {isOpen ? 'z-10 child-hero mt-2 w-[35%] sm:w-[25%] absolute sm:static top-8 right-8' : 'hidden'}>
+        <div ref={node} className= {isOpen ? 'z-10 child-hero mt-2 w-[15%] sm:w-[15%] sm:static top-8 right-8' : 'hidden'}>
           <Categories adjustcategoria={updateSelecao} categoriaHome={loja}/>
         </div>
 
         {/* banner central da pagina - carrousel */}
-        <div className="mt-2 w-full h-[auto] ml-0 sm:ml-0 mr-0 sm:mr-0 pb-1">
+        <div className="mt-2 w-[70%] h-[auto] ml-0 sm:ml-0 mr-0 sm:mr-0 pb-1">
           <Hero local={loja} />
+        </div>
+        {/* menu para busca de produtos, copiei das categorias */}
+        <div ref={node} className= {isOpen ? 'z-10 child-hero mt-2 w-[15%] sm:w-[15%] sm:static top-8 right-8' : 'hidden'}>
+          <Produtos adjustcategoria={updateSelecao} categoriaHome={loja}/>
         </div>
       </div>
 
       <div className="w-full pl-4 sm:pl-24 pr-4 sm:pr-24">
         <div>
-          <Image src={"/padariaJb-original1200x900.jpg"} width={1200} height={900} alt="banner central"></Image>
-          <p className="descript-banner-central">Padaria jardim Brasil - Tradição desde 1956</p>
+          <Image className=" sm:block" src="/logoHeader.png" width={816} height={445} alt="logo lojas jb"/>
+          
         </div>
       </div>
       <div className="w-full pl-4 sm:pl-24 pr-4 sm:pr-24">

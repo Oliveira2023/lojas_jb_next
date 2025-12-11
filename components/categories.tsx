@@ -41,7 +41,7 @@ export default function Categories({adjustcategoria, categoriaHome}: any) {
 
     return (
         <div className="p-0">
-            <h1 className="bg-gray-500 flex items-center justify-center text-2xl w-full text-white border h-10">Categorias</h1>
+            <h1 className="bg-[#5eb9e0] flex items-center justify-center text-2xl w-full text-white border h-10">Categorias</h1>
             <div className="overflow-y-scroll mt-1 bg-slate-50" style={{height: `${altura}px`, overflowX: "hidden"}}>
                 <ul className="">
                     {/* o que vai escrito sobre o hero é nome do updateCategoria(este nome) */}
