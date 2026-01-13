@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import manageHight from "@utils/manageHight";
-import styles from "./Produtos.module.css";
+import styles from "./produto.module.css";
 
 export default function Produtos({adjustcategoria, categoriaHome}: any) {
 

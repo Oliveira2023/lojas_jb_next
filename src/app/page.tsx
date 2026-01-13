@@ -12,7 +12,7 @@ import GoTopButton from "@components/goTopButton";
 import { ListaLojas } from "@utils/listaLojas";
 // import selectStreet from "@utils/streetSelection";
 import manageHight from "@utils/manageHight";
-import Produtos from "@components/Produtos";
+import Produtos from "@components/produtos";
 
 export default function Home() {
 
@@ -40,20 +40,20 @@ export default function Home() {
   //    };
   // }, []);
   
-  useEffect(() => {
-    // Detectar o tamanho da tela e atualizar isMenuOpen conforme necessário
-    console.log("useEffect page")
+  // useEffect(() => {
+  //   // Detectar o tamanho da tela e atualizar isMenuOpen conforme necessário
+  //   console.log("useEffect page")
 
-    const handleResize = () => {
-      setIsOpen(window.innerWidth > 768); // Exemplo: 768px como limite para desktop
-    };
+  //   const handleResize = () => {
+  //     setIsOpen(window.innerWidth > 768); // Exemplo: 768px como limite para desktop
+  //   };
 
-    window.addEventListener('resize', handleResize);
-    handleResize(); // Verificar o tamanho inicial da tela
-    return () => {
-      window.removeEventListener('resize', handleResize);
-    };
-  }, []);
+  //   window.addEventListener('resize', handleResize);
+  //   handleResize(); // Verificar o tamanho inicial da tela
+  //   return () => {
+  //     window.removeEventListener('resize', handleResize);
+  //   };
+  // }, []);
 
 
   const toggleMenu = () => {
@@ -132,8 +132,8 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="w-full pl-4 sm:pl-24 pr-4 sm:pr-24">
-        <div>
+      <div className="w-full px-4 sm:px-24">
+        <div className="w-full flex items-center justify-center mt-4 mb-2 bg-slate-400">
           <Image className=" sm:block" src="/logoHeader.png" width={816} height={445} alt="logo lojas jb"/>
           
         </div>
