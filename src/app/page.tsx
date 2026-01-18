@@ -24,38 +24,6 @@ export default function Home() {
   const node: any = useRef(null);
   const [teste, updateTeste] = useState<number>(0);
   
-  // erro de desaparecer as categorias**
-  // const handleClickOutside = (e: any) => {
-  //   if (node.current && node.current.contains(e.target)) {
-  //     return;
-  //   }
-  //   setIsOpen(false);
-  // }
-  // useEffect(() => {
-  //   document.addEventListener("mousedown", handleClickOutside);
-  //   console.log("evento criado")
-  //   return () => {
-  //     document.removeEventListener("mousedown", handleClickOutside);
-  //     console.log("evento removido")
-  //    };
-  // }, []);
-  
-  // useEffect(() => {
-  //   // Detectar o tamanho da tela e atualizar isMenuOpen conforme necessário
-  //   console.log("useEffect page")
-
-  //   const handleResize = () => {
-  //     setIsOpen(window.innerWidth > 768); // Exemplo: 768px como limite para desktop
-  //   };
-
-  //   window.addEventListener('resize', handleResize);
-  //   handleResize(); // Verificar o tamanho inicial da tela
-  //   return () => {
-  //     window.removeEventListener('resize', handleResize);
-  //   };
-  // }, []);
-
-
   const toggleMenu = () => {
     console.log("Toggling menu", isOpen);
     setIsOpen(!isOpen);
@@ -118,18 +86,18 @@ export default function Home() {
       {/* container categorias e banners */}
       <div className="z-1 w-full items-start justify-between font-mono text-sm flex flex-row pl-4 sm:pl-24 pr-4 sm:pr-24 pt-0 pb-1 ">
         {/* menu das categorias fechado para celulares - lateral para desktop */}
-        <div ref={node} className= {isOpen ? 'z-10 child-hero mt-2 w-[15%] sm:w-[15%] sm:static top-8 right-8' : 'hidden'}>
+        {/* <div ref={node} className= {isOpen ? 'z-10 child-hero mt-2 w-[15%] sm:w-[15%] sm:static top-8 right-8' : 'hidden'}>
           <Categories adjustcategoria={updateSelecao} categoriaHome={loja}/>
-        </div>
+        </div> */}
 
         {/* banner central da pagina - carrousel */}
-        <div className="mt-2 w-[70%] h-[auto] ml-0 sm:ml-0 mr-0 sm:mr-0 pb-1">
+        <div className="mt-2 w-full h-[auto] mx-auto pb-1">
           <Hero local={loja} />
         </div>
         {/* menu para busca de produtos, copiei das categorias */}
-        <div ref={node} className= {isOpen ? 'z-10 child-hero mt-2 w-[15%] sm:w-[15%] sm:static top-8 right-8' : 'hidden'}>
+        {/* <div ref={node} className= {isOpen ? 'z-10 child-hero mt-2 w-[15%] sm:w-[15%] sm:static top-8 right-8' : 'hidden'}>
           <Produtos adjustcategoria={updateSelecao} categoriaHome={loja}/>
-        </div>
+        </div> */}
       </div>
 
       <div className="w-full px-4 sm:px-24">

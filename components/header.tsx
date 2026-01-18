@@ -5,6 +5,7 @@ import { sedan } from "@/app/ui/fonts";
 import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import styles from "./header.module.css";
 
 export default function Header({localLoja, pageLoja}: {localLoja: any, pageLoja: string | null}) {
 
@@ -24,52 +25,74 @@ export default function Header({localLoja, pageLoja}: {localLoja: any, pageLoja:
    
     return (
       <>
-        <div className={`${sedan.className} flex flex-col sm:flex-row p-0 justify-between`}>
-
-          <div className={pageLoja !== null ? 'rounded-md ' : "h-10 w-2/3 sm:w-1/3 flex rounded-md text-lg bg-green-500 items-center"} style={{marginBottom: '0.5rem'}}>
-          {/* icone casa-home para voltar ao inicio */}
-
-                <Link className="w-14" href={"/"}>
-                <div onClick={() => console.log("voltar ao inicio")}>
-                <Image src="/home_24dp_FILL0_wght400_GRAD0_opsz24.svg" width={30} height={30} alt="logo"/></div></Link>
-
-            <select className={pageLoja !== null ? "hidden" : "w-full text-black text-lg sm:text-lg py-1 rounded-md"} name="lojas" onChange={(e) => 
-                handleLocalLoja(e.target.value)
-                } aria-label="Selecione a Loja" style={{ height: '100%'}}>
-              <option className="text-black" value="Lojas Roland Garros">Lojas Roland Garros</option>
-              <option className="text-black" value="Lojas Jardim Japão">Lojas Jardim Japão</option>
-              <option className="text-black" value="Lojas Edu Chaves">Lojas Edu Chaves</option>
-            </select>
-          </div>
-          
-          <div className='w-2/5 sm:w-1/3 md:w-2/5 h-10'>
-              <Search placeholder= "Buscar pelas melhores lojas" />
-          </div>
-        </div>
-
-        <nav className="text-white hidden">
+        <nav className="">
           <ul className="flex flex-row items-start sm:items-center justify-between">
-            <li className="text-lg sm:text-2xl font-light hover:scale-110 cursor-pointer" onClick={() => {
-              
-              setLoja('Farmácias');
-              // handleNavigate();
-              
-            }}>Farmácia</li>
-            <li className="text-lg sm:text-2xl font-light hover:scale-110 cursor-pointer" onClick={() => {
-              setLoja('Mercados');
-            }}>Mercado</li>
-            <li className="text-lg sm:text-2xl font-light hover:scale-110 cursor-pointer" onClick={() => {
-              setLoja('Celulares');
-            }}>Celular</li>
-            {/* <li className="text-2xl font-light hover:scale-110 cursor-pointer" onClick={() => {
-              setLoja('Vestuário');
-            }}>Vestuário</li> */}
-            {/* <li className="text-2xl font-light hover:scale-110 cursor-pointer" onClick={() => {
-              setLoja('Variedades');
-            }}>Variedades</li> */}
-            <li className="text-lg sm:text-2xl font-light hover:scale-110 cursor-pointer" onClick={() => {
-              setLoja('Óticas');
-            }}>Ótica</li>
+            <li>
+              <Link className="w-14" href={"/"}>
+                <div onClick={() => console.log("voltar ao inicio")}>
+                  <Image src="/home_24dp_FILL0_wght400_GRAD0_opsz24.svg" width={30} height={30} alt="logo" />
+                </div>
+              </Link>
+            </li>
+            <li className="flex flex-row items-center hover:scale-110">
+              <select
+                className={pageLoja !== null ? "hidden" : "select w-full text-lg sm:text-lg py-1 appearance-none cursor-pointer transition"}
+                name="lojas"
+                onChange={(e) => handleLocalLoja(e.target.value)}
+                aria-label="Selecione a Loja"
+                style={{ height: '100%', boxShadow: 'none', background: 'transparent', border: 'none', outline: 'none', paddingLeft: 0, paddingRight: 0, color: '#fff' }}
+              >
+              <option className={`${styles.selectOption}`} value="Lojas Roland Garros">Lojas Roland Garros</option>
+              <option className={`${styles.selectOption}`} value="Lojas Jardim Japão">Lojas Jardim Japão</option>
+              <option className={`${styles.selectOption}`} value="Lojas Edu Chaves">Lojas Edu Chaves</option>
+            </select>
+            </li>
+            
+            <li className="transition-hover duration-300 hover:scale-110">
+              <select
+                className={`${styles.select} text-lg sm:text-lg py-1 ease-in-out`}
+                name="categorias"
+                aria-label="Selecione a Categoria"
+                defaultValue=""
+                onChange={e => e.target.value && handleLocalLoja(e.target.value)}
+              >
+                <option value="" disabled hidden>Categorias</option>
+                <option className={`${styles.selectOption}`} value="Farmácias">Farmácia</option>
+                <option className={`${styles.selectOption}`} value="Mercados">Mercado</option>
+                <option className={`${styles.selectOption}`} value="Bebidas">Bebidas</option>
+                <option className={`${styles.selectOption}`} value="Celulares">Celulares</option>
+                <option className={`${styles.selectOption}`} value="Óticas">Óticas</option>
+                <option className={`${styles.selectOption}`} value="Vestuário">Vestuário</option>
+                <option className={`${styles.selectOption}`} value="Construção">Construção</option>
+                <option className={`${styles.selectOption}`} value="Salão de Beleza">Salão de Beleza</option>
+                <option className={`${styles.selectOption}`} value="Avículas">Avículas</option>
+                <option className={`${styles.selectOption}`} value="Utilidades">Utilidades</option>
+                <option className={`${styles.selectOption}`} value="Presentes">Presentes</option>
+                <option className={`${styles.selectOption}`} value="Restaurantes">Restaurantes</option>
+              </select>
+            </li>
+            <li className="flex flex-row items-center hover:scale-110">
+              <select
+                className={`${styles.select} w-full text-lg sm:text-lg py-1 appearance-none cursor-pointer transition bg-transparent border-none outline-none text-white`}
+                name="produtos"
+                aria-label="Selecione o Produto"
+                defaultValue=""
+                onChange={e => e.target.value && handleLocalLoja(e.target.value)}
+                >
+                <option className={`${styles.selectOption}`} value="" disabled hidden>Produtos</option>
+                <option className={`${styles.selectOption}`} value="Remédios">Remédios</option>
+                <option className={`${styles.selectOption}`} value="Roupas">Roupas</option>
+                <option className={`${styles.selectOption}`} value="Pão">Pão</option>
+                <option className={`${styles.selectOption}`} value="Vinhos">Vinhos</option>
+                <option className={`${styles.selectOption}`} value="Refrigerante">Refrigerante</option>
+                <option className={`${styles.selectOption}`} value="Cerveja">Cerveja</option>
+
+              </select>
+            </li>
+            <li>
+              <Search placeholder= "Buscar pelas melhores lojas" />
+            </li>
+
           </ul>
         </nav>
       </>

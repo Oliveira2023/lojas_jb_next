@@ -22,8 +22,6 @@ export default function Hero({local}: {local: string}) {
             setActiveImgIndex(0)
         }
     }
-    // window.addEventListener('resize', manageHight)
-    // window.addEventListener("load", manageHight)
     const clickPrev = () => {
         if (activeImgIndex > 0) {
             setActiveImgIndex(activeImgIndex - 1)
@@ -36,37 +34,36 @@ export default function Hero({local}: {local: string}) {
             clickNext();
         }, 5000);
         return () => clearInterval(interval);
-    });
+    }, [activeImgIndex]);
 
     const updateSelecao = (selecao: string) => {
         updateLoja(selecao)
       }
     return (
         <>
-            <h1 className="bg-[#3B9F4E] mx-1 flex items-center justify-center text-1xl sm:text-3xl text-white h-10 border">{local}</h1>
+            {/* <h1 className="bg-[#3B9F4E] mx-1 flex items-center justify-center text-1xl sm:text-3xl text-white h-10 border">{local}</h1> */}
             {/*  carrousel + banner lateral */}
             <div id="hero" className="flex flex-row justify-between ">
                 
                 {/* div carrousel */}
-                <div className="m-1 w-[100%] relative">
+                <div className="w-full relative">
                     {images.map((image, index) => (
                         <div key={image.Id} className={`${
-                            index === activeImgIndex ? "block w-full bg-slate-50": "hidden"}`}>
+                            index === activeImgIndex ? "block w-full": "hidden"}`}>
                             <Image
                             src={image.src}
                             width={1280} height={844}
                             alt={image.alt}
                             priority={true}
                             placeholder = 'empty'
+                            style={{ objectFit: 'cover', width: '100%', height: 'auto' }}
                             />
                         </div>
+                        
                     ))}
-                    <div className="">
-                    <Descriptions 
-                    clickNext={clickNext}
-                    clickPrev={clickPrev}
-                    activeImgIndex={activeImgIndex}
-                    />
+                    <div className="text-center text-white bg-black bg-opacity-50 p-2 w-full absolute bottom-0">
+                        <p>{images[activeImgIndex].title}</p>
+                        <p>{images[activeImgIndex].description}</p>
                     </div>
 
                     <div onClick={clickPrev} className="z-10 absolute top-1/3 left-1 transform-translate-y-1/2 hover:bg-opacity-50 hover:bg-slate-400 rounded-full">
@@ -76,16 +73,6 @@ export default function Hero({local}: {local: string}) {
                         <Image src={right} width={44} height={44} alt=""></Image>
                     </div>
                 </div>
-                {/* div banner lateral */}
-                {/* <div className="flex flex-col justify-between w-[25%] mt-0 p-1">
-                    <div className="flex-1" style={{  }}>
-                    <Image className="object-fill" src={banerLateral} width={450} height={844} alt="banner lateral"/>
-                    </div>
-                    <div className="border-2" style={{height: "50px"}}>
-                        <p>Meg´s Perfumaria</p>
-                    </div>
-                    
-                </div> */}
             </div>
         </>
 
