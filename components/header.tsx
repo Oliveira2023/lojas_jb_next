@@ -6,6 +6,8 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import styles from "./header.module.css";
+import Select from "react-select";
+import SelectCategories from "./selectCategories";
 
 export default function Header({localLoja, pageLoja}: {localLoja: any, pageLoja: string | null}) {
 
@@ -21,6 +23,11 @@ export default function Header({localLoja, pageLoja}: {localLoja: any, pageLoja:
       setLoja(loja);
       localLoja(loja);
     }
+      interface Option {
+      value: string;
+      label: string;
+    }
+    
     
    
     return (
@@ -47,10 +54,14 @@ export default function Header({localLoja, pageLoja}: {localLoja: any, pageLoja:
               <option className={`${styles.selectOption}`} value="Lojas Edu Chaves">Lojas Edu Chaves</option>
             </select>
             </li>
-            
+            <li>
+              <SelectCategories
+                getStyles
+              />
+            </li>
             <li className="transition-hover duration-300 hover:scale-110">
               <select
-                className={`${styles.select} text-lg sm:text-lg py-1 ease-in-out`}
+                className={`${styles.select} text-lg sm:text-lg ease-in-out`}
                 name="categorias"
                 aria-label="Selecione a Categoria"
                 defaultValue=""

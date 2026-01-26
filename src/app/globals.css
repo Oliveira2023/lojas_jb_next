@@ -35,18 +35,7 @@ body {
 .header-container {
   /* background-color: #6B6E4F; */
 }
-.categories-container {
-  height: 270px;
-  overflow-x: hidden;
-}
-.categories {
-  border-bottom: 1px dashed rgb(59, 131, 246);
 
-}
-.categories:hover {
- background-color: rgb(59, 131, 246);
- transform: scale(1.02);
-}
 
 @media screen and (min-width: 768px) {
   .menuHidden{
