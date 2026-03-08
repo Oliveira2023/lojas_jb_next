@@ -91,8 +91,19 @@ export default function Home() {
         </div> */}
 
         {/* banner central da pagina - carrousel */}
-        <div className="mt-2 w-full h-[auto] mx-auto pb-1">
-          <Hero local={loja} />
+        <div className="mt-4 w-full flex flex-row items-start justify-between">
+          <div className=" w-[65%] h-[auto] mx-0 pb-1">
+            <Hero local={loja} />
+          </div>
+          <div className="w-[30%] my-auto bg-[#5465A8] p-2 text-sm sm:text-lg flex flex-col items-center justify-center">
+            <h1 className="mb-4 text-center">Lojas Jardim Brasil</h1>
+            <p>O site das lojas do Jardim Brasil foi criado para facilitar a busca por produtos e serviços em uma única plataforma, as 3 principais
+              avenidas do bairro estão representadas, cada uma com suas lojas e categorias específicas. O site é fácil de usar, 
+              basta selecionar a loja ou categoria desejada para encontrar o que precisa. Além disso, 
+              o site oferece promoções exclusivas e descontos para os clientes das lojas do Jardim Brasil. 
+              Com o site das lojas do Jardim Brasil, você pode economizar tempo e dinheiro, encontrando tudo o que precisa em um só lugar.
+            </p>
+          </div>
         </div>
         {/* menu para busca de produtos, copiei das categorias */}
         {/* <div ref={node} className= {isOpen ? 'z-10 child-hero mt-2 w-[15%] sm:w-[15%] sm:static top-8 right-8' : 'hidden'}>

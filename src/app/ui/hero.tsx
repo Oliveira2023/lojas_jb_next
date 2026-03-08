@@ -54,7 +54,8 @@ export default function Hero({local}: {local: string}) {
                             src={image.src}
                             width={1280} height={844}
                             alt={image.alt}
-                            priority={true}
+                            priority={index === 0}
+                            unoptimized={image.src.startsWith('http')}
                             placeholder = 'empty'
                             style={{ objectFit: 'cover', width: '100%', height: 'auto' }}
                             />
@@ -66,10 +67,10 @@ export default function Hero({local}: {local: string}) {
                         <p>{images[activeImgIndex].description}</p>
                     </div>
 
-                    <div onClick={clickPrev} className="z-10 absolute top-1/3 left-1 transform-translate-y-1/2 hover:bg-opacity-50 hover:bg-slate-400 rounded-full">
+                    <div onClick={clickPrev} className="z-10 absolute top-1/2 left-1 transform-translate-y-1/2 hover:bg-opacity-50 hover:bg-slate-400 rounded-full">
                         <Image src={left} width={44} height={44} alt="seta a esquerda"></Image>
                     </div>
-                    <div onClick={clickNext} className="absolute top-1/3 right-0 transform-translate-y-1/2 hover:bg-opacity-50 hover:bg-slate-400 rounded-full">
+                    <div onClick={clickNext} className="absolute top-1/2 right-0 transform-translate-y-1/2 hover:bg-opacity-50 hover:bg-slate-400 rounded-full">
                         <Image src={right} width={44} height={44} alt=""></Image>
                     </div>
                 </div>
