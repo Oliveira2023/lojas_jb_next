@@ -112,13 +112,13 @@ export default function Home() {
       </div>
 
       <div className="w-full px-4 sm:px-24">
-        <div className="w-full flex items-center justify-center mt-4 mb-2 bg-slate-400">
-          <Image className=" sm:block" src="/logoHeader.png" width={816} height={445} alt="logo lojas jb"/>
+        <div className="w-full flex items-center justify-center mt-4 mb-2">
+          <Image className="border border-gray-300 sm:block" src="/logoHeader.png" width={816} height={445} alt="logo lojas jb"/>
           
         </div>
       </div>
-      <div className="w-full pl-4 sm:pl-24 pr-4 sm:pr-24">
-      <h1 className="bg-gray-500 p-2 text-center text-xl sm:text-2xl">Seleção das Lojas</h1>
+      <div className="w-full sm:pl-24 sm:pr-24 sticky top-0 z-10 backdrop-blur-md bg-white/70 border-b border-white/20 shadow-sm py-4">
+      <h1 className="text-center text-xl font-semibold text-blue-900 tracking-wide uppercase">Lojas</h1>
       </div>
       <div id="cards" className="w-full items-center grid grid-cols-5 flex-row gap-1 m-1 pl-4 sm:pl-24 pr-4 sm:pr-24">
 
@@ -129,6 +129,8 @@ export default function Home() {
           lojasEncontradas.map((lojas) => (
             <div key={lojas.numLoja} className="w-[100%]">
               <CardsLojas gruppo={loja} image={lojas.imageUrl} nome={lojas.nomeLoja} numLoja={lojas.numLoja}/>
+              <h1>{lojas.nomeLoja}</h1>
+              <p>{lojas.endereco}</p>
             </div>
           ))
         ) : (

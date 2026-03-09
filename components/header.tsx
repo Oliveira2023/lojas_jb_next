@@ -55,9 +55,7 @@ export default function Header({localLoja, pageLoja}: {localLoja: any, pageLoja:
             </select>
             </li>
             <li>
-              <SelectCategories
-                getStyles
-              />
+              <SelectCategories  />
             </li>
             <li className="transition-hover duration-300 hover:scale-110">
               <select
