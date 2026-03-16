@@ -8,10 +8,10 @@ export const images = [
     },
     {
         Id : 2,
-        src : '/carroussel/pexels-bolos-15346745.jpg',
+        src : '/carroussel/casaDeBolosGeminiRC.png',
         alt : 'banner principal',
-        title : 'Doces e Bolos',
-        description: "Delicias finas feitas com carinho."
+        title : 'Casa de Bolos',
+        description: "Roland Garros, 1871"
     },
     {
         Id : 3, 

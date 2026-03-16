@@ -91,11 +91,11 @@ export default function Home() {
         </div> */}
 
         {/* banner central da pagina - carrousel */}
-        <div className="mt-4 w-full flex flex-row items-start justify-between">
-          <div className=" w-[65%] h-[auto] mx-0 pb-1">
+        <div className="mt-4 w-full h-[80vh] flex flex-row items-start justify-between bg-[#F1F5F0]">
+          <div className=" w-[65%] h-[80vh] mx-0 p-2">
             <Hero local={loja} />
           </div>
-          <div className="w-[30%] my-auto bg-[#5465A8] p-2 text-sm sm:text-lg flex flex-col items-center justify-center">
+          <div className="w-[34%] h-[80vh] my-auto p-2 text-sm sm:text-lg flex flex-col items-center justify-center overflow-y-auto ">
             <h1 className="mb-4 text-center">Lojas Jardim Brasil</h1>
             <p>O site das lojas do Jardim Brasil foi criado para facilitar a busca por produtos e serviços em uma única plataforma, as 3 principais
               avenidas do bairro estão representadas, cada uma com suas lojas e categorias específicas. O site é fácil de usar, 
@@ -117,7 +117,7 @@ export default function Home() {
           
         </div>
       </div>
-      <div className="w-full sm:pl-24 sm:pr-24 sticky top-0 z-10 backdrop-blur-md bg-white/70 border-b border-white/20 shadow-sm py-4">
+      <div className="w-full sm:pl-24 sm:pr-24 z-10 bg-white/70 border-b border-white/20 shadow-sm py-4">
       <h1 className="text-center text-xl font-semibold text-blue-900 tracking-wide uppercase">Lojas</h1>
       </div>
       <div id="cards" className="w-full items-center grid grid-cols-5 flex-row gap-1 m-1 pl-4 sm:pl-24 pr-4 sm:pr-24">
@@ -127,7 +127,7 @@ export default function Home() {
 
         lojasEncontradas.length > 0?(
           lojasEncontradas.map((lojas) => (
-            <div key={lojas.numLoja} className="w-[100%]">
+            <div key={lojas.numLoja} className="w-[100%] mb-2">
               <CardsLojas gruppo={loja} image={lojas.imageUrl} nome={lojas.nomeLoja} numLoja={lojas.numLoja}/>
               <h1>{lojas.nomeLoja}</h1>
               <p>{lojas.endereco}</p>
