@@ -10,6 +10,10 @@ export default function FilterStore(grupo: string) {
   
     // const lojasEncontradas = ListaLojas.filter((loja: { grupo: string; categoria: string }) => loja.grupo === grupo || loja.categoria === grupo);
 
+    if (!grupo || grupo === "all") {
+      return { lojasEncontradas: ListaLojas };
+    }
+
     const lojasEncontradas = ListaLojas.filter(loja => loja.grupo === grupo || loja.categoria === grupo);
     
     return { lojasEncontradas };

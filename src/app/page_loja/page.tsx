@@ -116,6 +116,11 @@ export default function PaginaLoja() {
             <div className="w-full pl-4 sm:pl-24 pr-4 sm:pr-24 pt-2 pb-2 bg-[#6B6E4F]" >
                     <Header localLoja={updateSelecao} pageLoja={grupo} />
             </div>
+            <div className="w-full px-4 sm:px-24 flex justify-center py-4">
+                <div className="h-16 w-16 rounded-full border-2 border-white bg-slate-700 flex items-center justify-center relative z-10">
+                    <span className="text-white font-bold text-lg">JB</span>
+                </div>
+            </div>
             <div className="flex flex-col sm:flex-row pl-4 sm:pl-24 pr-4 sm:pr-24 gap-2 items-center mt-4">
                 <div className="w-full sm:w-1/3">
                         <Image src={imageUrl? imageUrl : "/next.svg"} width={1000} height={1000} alt={"imagem da loja"}></Image>

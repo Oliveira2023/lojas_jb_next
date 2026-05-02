@@ -16,8 +16,8 @@ import Produtos from "@components/produtos";
 
 export default function Home() {
 
-  const [loja, updateLoja] = useState<string>('Lojas Roland Garros')
-  const [grupo, setGrupo] = useState<string>('roland')
+  const [loja, updateLoja] = useState<string>('')
+  const [grupo, setGrupo] = useState<string>('all')
   const filteredLojas = FilterStore(grupo);
   const lojasEncontradas = filteredLojas.lojasEncontradas;
   const [isOpen, setIsOpen] = useState<boolean>(true);
@@ -34,7 +34,9 @@ export default function Home() {
   // updateselecao recebe a cagegoria atualizando a selecao atualiza o grupo
   useEffect(() => {
 
-    if (loja === 'Lojas Roland Garros') {
+    if (!loja) {
+      setGrupo('all');
+    } else if (loja === 'Lojas Roland Garros') {
       setGrupo('roland');
     } else if (loja === 'Lojas Jardim Japão') {
       setGrupo('japao');
@@ -58,6 +60,8 @@ export default function Home() {
       setGrupo('Beleza');
     } else if (loja === "Avículas") {
       setGrupo('Avicula');
+    } else {
+      setGrupo('all');
     }
   }, [loja])
 
@@ -82,9 +86,13 @@ export default function Home() {
       <div className="header-container w-full pl-4 pr-4 sm:pl-24 sm:pr-24 pt-2 pb-2 bg-[#6B6E4F] ">
         <Header localLoja={updateSelecao} pageLoja={null}/>
       </div>
+
+      <div className="w-full pl-4 pr-4 sm:pl-24 sm:pr-24">
+        <div className="pointer-events-none h-8 sm:h-12 rounded-b-2xl bg-white/25 backdrop-blur-sm border-b border-white/30 shadow-sm"></div>
+      </div>
       
       {/* container categorias e banners */}
-      <div className="z-1 w-full items-start justify-between font-mono text-sm flex flex-row pl-4 sm:pl-24 pr-4 sm:pr-24 pt-0 pb-1 ">
+      <div className="z-1 w-full items-start justify-between font-mono text-sm flex flex-row pl-4 sm:pl-24 pr-4 sm:pr-24 pt-4 pb-1 ">
         {/* menu das categorias fechado para celulares - lateral para desktop */}
         {/* <div ref={node} className= {isOpen ? 'z-10 child-hero mt-2 w-[15%] sm:w-[15%] sm:static top-8 right-8' : 'hidden'}>
           <Categories adjustcategoria={updateSelecao} categoriaHome={loja}/>
@@ -134,8 +142,8 @@ export default function Home() {
             </div>
           ))
         ) : (
-          <div className="w-full text-center bg-red-400 p-2 ">
-            <p>Nenhum item corresponde a pesquisa.</p>
+          <div className="w-full text-center bg-blue-900 p-2 ">
+            <p className="text-white">Nenhum item corresponde a pesquisa.</p>
           </div>
         )
 
