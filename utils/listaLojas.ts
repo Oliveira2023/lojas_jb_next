@@ -135,7 +135,7 @@ export const ListaLojas = [
         grupo: "roland",
         numLoja: "loja12",
         nomeLoja: "G2 ATACADO DE BEBIDAS",
-        categoria: "Construcao",
+        categoria: "Bebidas",
         imageUrl: "/padrao.jpg",
         endereco: "Av. Roland Garros, 923",
         mapa: "G2 ATACADO DE BEBIDAS",

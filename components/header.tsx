@@ -1,5 +1,6 @@
 
 import Search from "@/app/ui/Search";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
 import Select from "react-select";
@@ -129,10 +130,24 @@ export default function Header({localLoja, pageLoja}: {localLoja: any, pageLoja:
 
     const [loja, setLoja] = useState<string>('Lojas Roland Garros')
     const [resetCounter, setResetCounter] = useState(0)
+    const router = useRouter();
 
     function handleLocalLoja(loja: string) {
       setLoja(loja);
       localLoja(loja);
+      if (pageLoja !== null) {
+        router.push(`/?loja=${encodeURIComponent(loja)}`);
+      }
+    }
+
+    function handleStreetSelect(lojaVal: string) {
+      // set street selection and reset other controls (search, category, product)
+      setLoja(lojaVal);
+      localLoja(lojaVal);
+      setResetCounter(counter => counter + 1);
+      if (pageLoja !== null) {
+        router.push(`/?loja=${encodeURIComponent(lojaVal)}`);
+      }
     }
 
     function handleHomeClick() {
@@ -150,7 +165,7 @@ export default function Header({localLoja, pageLoja}: {localLoja: any, pageLoja:
           <ul className="flex flex-row items-start sm:items-center justify-between">
             <li>
               <Link className="w-14" href={"/"}>
-                <div onClick={handleHomeClick} className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-blue-500 text-white font-bold text-sm leading-none cursor-pointer">
+                <div onClick={handleHomeClick} className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-transparent text-white font-bold text-sm leading-none cursor-pointer">
                   <p>JB</p>
                 </div>
               </Link>
@@ -164,7 +179,7 @@ export default function Header({localLoja, pageLoja}: {localLoja: any, pageLoja:
                 placeholder="Selecione a Avenida"
                 styles={streetSelectStyles}
                 menuPortalTarget={menuPortalTarget}
-                onChange={(option: any) => option?.value && handleLocalLoja(option.value)}
+                onChange={(option: any) => option?.value && handleStreetSelect(option.value)}
                 aria-label="Selecione a Loja"
               />
             </li>

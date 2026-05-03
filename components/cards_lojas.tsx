@@ -16,7 +16,7 @@ export default function CardsLojas({ gruppo, image, nome, numLoja }: CardsLojasP
                         <Image className="w-full h-auto" src={image} width={200} height={200} alt={nome}/>
                     </div>
                 </Link>
-                {/* <p className="text-xs text-center text-gray-700 truncate">{nome}</p> */}
+                <p className="text-xs text-left text-gray-700 truncate">{nome}</p>
             </div>
         </>       
     )

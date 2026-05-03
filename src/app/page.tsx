@@ -10,6 +10,7 @@ import PaginaLoja from "./page_loja/page";
 import Header from "@components/header";
 import GoTopButton from "@components/goTopButton";
 import { ListaLojas } from "@utils/listaLojas";
+import { useSearchParams } from "next/navigation";
 // import selectStreet from "@utils/streetSelection";
 import manageHight from "@utils/manageHight";
 import Produtos from "@components/produtos";
@@ -18,6 +19,7 @@ export default function Home() {
 
   const [loja, updateLoja] = useState<string>('')
   const [grupo, setGrupo] = useState<string>('all')
+  const searchParams = useSearchParams();
   const filteredLojas = FilterStore(grupo);
   const lojasEncontradas = filteredLojas.lojasEncontradas;
   const [isOpen, setIsOpen] = useState<boolean>(true);
@@ -60,8 +62,10 @@ export default function Home() {
       setGrupo('Beleza');
     } else if (loja === "Avículas") {
       setGrupo('Avicula');
+    } else if (loja === "Bebidas") {
+      setGrupo('Bebidas');
     } else {
-      setGrupo('all');
+      setGrupo('none');
     }
   }, [loja])
 
@@ -75,6 +79,13 @@ export default function Home() {
     updateLoja(selecao)
     
   }
+
+  useEffect(() => {
+    const lojaFromQuery = searchParams.get('loja') ?? '';
+    if (lojaFromQuery) {
+      updateLoja(lojaFromQuery);
+    }
+  }, [searchParams]);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-0 ">
@@ -122,13 +133,12 @@ export default function Home() {
       <div className="w-full px-4 sm:px-24">
         <div className="w-full flex items-center justify-center mt-4 mb-2">
           <Image className="border border-gray-300 sm:block" src="/logoHeader.png" width={816} height={445} alt="logo lojas jb"/>
-          
         </div>
       </div>
       <div className="w-full sm:pl-24 sm:pr-24 z-10 bg-white/70 border-b border-white/20 shadow-sm py-4">
       <h1 className="text-center text-xl font-semibold text-blue-900 tracking-wide uppercase">Lojas</h1>
       </div>
-      <div id="cards" className="w-full items-center grid grid-cols-5 flex-row gap-1 m-1 pl-4 sm:pl-24 pr-4 sm:pr-24">
+      <div id="cards" className="flex w-full items-center grid grid-cols-5 flex-row gap-1 m-1 pl-4 sm:pl-24 pr-4 sm:pr-24">
 
       {
         //  para encontrar as lojas
@@ -137,13 +147,12 @@ export default function Home() {
           lojasEncontradas.map((lojas) => (
             <div key={lojas.numLoja} className="w-[100%] mb-2">
               <CardsLojas gruppo={loja} image={lojas.imageUrl} nome={lojas.nomeLoja} numLoja={lojas.numLoja}/>
-              <h1>{lojas.nomeLoja}</h1>
               <p>{lojas.endereco}</p>
             </div>
           ))
         ) : (
-          <div className="w-full text-center bg-blue-900 p-2 ">
-            <p className="text-white">Nenhum item corresponde a pesquisa.</p>
+          <div className="col-span-5 flex justify-center items-center bg-blue-500 p-4">
+            <p className="text-white text-center">Nenhum item corresponde a pesquisa.</p>
           </div>
         )
 
