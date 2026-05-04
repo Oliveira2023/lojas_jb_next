@@ -34,7 +34,7 @@ export default function Search({placeholder, resetToken}: {placeholder: string, 
                 className='w-full rounded-md border border-gray-200 py-1 pl-10 text-lg text-neutral-950 placeholder:text-gray-400'
                 placeholder={'Buscar pelas melhores lojas'}
                 onChange={(e) => handleSearch(e.target.value)}
-                defaultValue={inputtxt}
+                value={inputtxt}
                 name='search'
                 id='search'
                 />
@@ -51,8 +51,8 @@ export default function Search({placeholder, resetToken}: {placeholder: string, 
                             <div className='relative'>
                                 <div className='flex flex-row flex-wrap items-start gap-3 p-3 max-h-96 overflow-y-auto pb-10'>
                                     {lojas.map((loja) => (
-                                        <div className='w-20 sm:w-24' key={loja.numLoja}>
-                                            <CardsLojas gruppo={loja.numLoja} image={loja.imageUrl} nome={loja.nomeLoja} numLoja={loja.numLoja}/>
+                                        <div className='w-20 sm:w-24' key={loja.id}>
+                                            <CardsLojas gruppo={loja.id} image={loja.image_url} nome={loja.nome_loja} numLoja={loja.id}/>
                                         </div>
                                     ))}
                                 </div>

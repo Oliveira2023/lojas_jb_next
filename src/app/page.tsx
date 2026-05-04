@@ -9,7 +9,6 @@ import FilterStore from "@utils/filterStore";
 import PaginaLoja from "./page_loja/page";
 import Header from "@components/header";
 import GoTopButton from "@components/goTopButton";
-import { ListaLojas } from "@utils/listaLojas";
 import { useSearchParams } from "next/navigation";
 // import selectStreet from "@utils/streetSelection";
 import manageHight from "@utils/manageHight";
@@ -20,8 +19,15 @@ export default function Home() {
   const [loja, updateLoja] = useState<string>('')
   const [grupo, setGrupo] = useState<string>('all')
   const searchParams = useSearchParams();
-  const filteredLojas = FilterStore(grupo);
-  const lojasEncontradas = filteredLojas.lojasEncontradas;
+  // const filteredLojas = FilterStore(grupo);
+  // const lojasEncontradas = filteredLojas.lojasEncontradas;
+  const [lojasEncontradas, setLojasEncontradas] = useState<any[]>([]);
+
+  useEffect(() => {
+    FilterStore(grupo).then(({ lojasEncontradas }) => {
+    setLojasEncontradas(lojasEncontradas);
+  });
+}, [grupo]);
   const [isOpen, setIsOpen] = useState<boolean>(true);
   const node: any = useRef(null);
   const [teste, updateTeste] = useState<number>(0);
@@ -145,8 +151,13 @@ export default function Home() {
 
         lojasEncontradas.length > 0?(
           lojasEncontradas.map((lojas) => (
-            <div key={lojas.numLoja} className="w-[100%] mb-2">
-              <CardsLojas gruppo={loja} image={lojas.imageUrl} nome={lojas.nomeLoja} numLoja={lojas.numLoja}/>
+            <div key={lojas.id} className="w-[100%] mb-2">
+              <CardsLojas
+                gruppo={loja}
+                image={lojas.image_url}
+                nome={lojas.nome_loja}
+                numLoja={lojas.id}
+              />
               <p>{lojas.endereco}</p>
             </div>
           ))

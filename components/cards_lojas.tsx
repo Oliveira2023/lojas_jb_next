@@ -5,7 +5,7 @@ type CardsLojasProps = {
     nome: string;
     gruppo: string;
     image: string;
-    numLoja: string
+    numLoja: number;
   };
 export default function CardsLojas({ gruppo, image, nome, numLoja }: CardsLojasProps) {
     return (
