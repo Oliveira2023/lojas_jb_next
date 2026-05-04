@@ -1,9 +1,9 @@
 'use client'
 
+import { Suspense, useEffect, useState } from 'react'
 import Header from "@components/header"
 import Image from "next/image";
 import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react"
 import Maps from "@components/maps";
 import Link from "next/link";
 import Footer from "@components/footer";
@@ -32,7 +32,7 @@ type Product = {
   image_url?: string;
 }
 
-export default function PaginaLoja() {
+function PaginaLojaContent() {
   const [mapsApiKey, setMapsApiKey] = useState<string | null>(null);
   const [loja, setLoja] = useState<Loja | null>(null);
   const [loading, setLoading] = useState(true);
@@ -213,4 +213,12 @@ export default function PaginaLoja() {
       <div className="pl-4 sm:pl-24 pr-4 sm:pr-24 mt-1 mb-1"><Footer /></div>
     </>
   )
+}
+
+export default function PaginaLoja() {
+  return (
+    <Suspense fallback={<p className="text-center mt-10">Carregando...</p>}>
+      <PaginaLojaContent />
+    </Suspense>
+  );
 }
