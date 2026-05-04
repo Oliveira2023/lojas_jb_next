@@ -1,6 +1,10 @@
 {
   "compilerOptions": {
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -18,13 +22,36 @@
       }
     ],
     "paths": {
-      "@/*": ["./src/*"],
-      "@public/*": ["./public/*"],
-      "@utils/*": ["./utils/*"],
-      "@components/*": ["./components/*"],
-      "@pages/*": ["./pages/*"]
-    }
+      "@/*": [
+        "./src/*"
+      ],
+      "@public/*": [
+        "./public/*"
+      ],
+      "@utils/*": [
+        "./utils/*"
+      ],
+      "@components/*": [
+        "./components/*"
+      ],
+      "@pages/*": [
+        "./pages/*"
+      ]
+    },
+    "target": "ES2017"
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "src/app/api/page.tsx", "utils/mongoConnect.ts", "utils/fetchLojas.js", "utils/manipulaMongoTeste.js", "utils/mongoConfig.js"],
-  "exclude": ["node_modules, .env.development"]
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/app/api/page.tsx",
+    "utils/mongoConnect.ts",
+    "utils/fetchLojas.js",
+    "utils/manipulaMongoTeste.js",
+    "utils/mongoConfig.js"
+  ],
+  "exclude": [
+    "node_modules, .env.development"
+  ]
 }
