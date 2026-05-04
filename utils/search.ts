@@ -1,24 +1,16 @@
-import { ListaLojas } from '@utils/listaLojas';
-
 export default async function handleSearch(term : string) {
 
-    var resultado: any[]=[];
+    const searchTerm = term.trim();
 
-        for(let igeral=0; igeral<ListaLojas.length;igeral++) {
-            
-            let nomeLoja = ListaLojas[igeral].nomeLoja;
-            let nomeParcial: string = '';
-           
-            for(let i=0; i<nomeLoja.length; i++){
-                nomeParcial += nomeLoja[i];
-                // console.log(term + "|" + nomeParcial.toLocaleLowerCase());
-                
-                if(term.toLowerCase() == nomeParcial.toLowerCase()) {
-                    resultado.push(ListaLojas[igeral])// = ListaLojas[igeral]
-                }else {
-                    continue;
-                }
-            }
-        }
-        return resultado;
+    if (!searchTerm) {
+        return [];
+    }
+
+    const response = await fetch(`/api/stores?q=${encodeURIComponent(searchTerm)}`);
+
+    if (!response.ok) {
+        throw new Error('Failed to search stores');
+    }
+
+    return response.json();
 }

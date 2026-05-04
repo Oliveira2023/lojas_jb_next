@@ -1,74 +1,215 @@
 
 import Search from "@/app/ui/Search";
-import { useEffect, useState } from "react";
-import { sedan } from "@/app/ui/fonts";
-import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import Link from "next/link";
+import Select from "react-select";
+
+const streetOptions = [
+  { value: "Lojas Roland Garros", label: "Lojas Roland Garros" },
+  { value: "Lojas Jardim Japão", label: "Lojas Jardim Japão" },
+  { value: "Lojas Edu Chaves", label: "Lojas Edu Chaves" },
+];
+
+const categoryOptions = [
+  { value: "Farmácias", label: "Farmácia" },
+  { value: "Mercados", label: "Mercado" },
+  { value: "Bebidas", label: "Bebidas" },
+  { value: "Celulares", label: "Celulares" },
+  { value: "Óticas", label: "Óticas" },
+  { value: "Vestuário", label: "Vestuário" },
+  { value: "Construção", label: "Construção" },
+  { value: "Salão de Beleza", label: "Salão de Beleza" },
+  { value: "Avículas", label: "Avículas" },
+  { value: "Utilidades", label: "Utilidades" },
+  { value: "Presentes", label: "Presentes" },
+  { value: "Restaurantes", label: "Restaurantes" },
+];
+
+const productOptions = [
+  { value: "Remédios", label: "Remédios" },
+  { value: "Roupas", label: "Roupas" },
+  { value: "Pão", label: "Pão" },
+  { value: "Vinhos", label: "Vinhos" },
+  { value: "Refrigerante", label: "Refrigerante" },
+  { value: "Cerveja", label: "Cerveja" },
+];
+
+const selectLikeStreetStyles = {
+  container: (base: any) => ({
+    ...base,
+    width: "100%",
+  }),
+  control: (base: any) => ({
+    ...base,
+    backgroundColor: "transparent",
+    border: "none",
+    boxShadow: "none",
+    minHeight: "auto",
+    cursor: "pointer",
+    alignItems: "center",
+    fontSize: "1.125rem",
+    flexWrap: "nowrap",
+  }),
+  valueContainer: (base: any) => ({
+    ...base,
+    padding: "0 2px",
+  }),
+  placeholder: (base: any) => ({
+    ...base,
+    color: "#fff",
+    fontSize: "1.125rem",
+    whiteSpace: "nowrap",
+  }),
+  singleValue: (base: any) => ({
+    ...base,
+    color: "#fff",
+    fontSize: "1.125rem",
+    whiteSpace: "nowrap",
+  }),
+  menu: (base: any) => ({
+    ...base,
+    zIndex: 9999,
+    width: "max-content",
+    minWidth: "100%",
+    maxWidth: "min(24rem, calc(100vw - 1rem))",
+    boxSizing: "border-box",
+  }),
+  menuPortal: (base: any) => ({
+    ...base,
+    zIndex: 9999,
+  }),
+  menuList: (base: any) => ({
+    ...base,
+    width: "max-content",
+    minWidth: "100%",
+  }),
+  option: (base: any, state: any) => ({
+    ...base,
+    fontSize: "1rem",
+    color: "#000",
+    backgroundColor: state.isFocused ? "#f3f4f6" : "#fff",
+    whiteSpace: "nowrap",
+  }),
+  indicatorSeparator: () => ({
+    display: "none",
+  }),
+  dropdownIndicator: (base: any) => ({
+    ...base,
+    display: "flex",
+    color: "#fff",
+    padding: "0 4px",
+  }),
+  input: (base: any) => ({
+    ...base,
+    color: "#fff",
+  }),
+};
+
+const streetSelectStyles = {
+  ...selectLikeStreetStyles,
+  container: (base: any) => ({
+    ...base,
+    width: "100%",
+    minWidth: "14rem",
+    maxWidth: "18rem",
+  }),
+};
+
+const secondarySelectStyles = {
+  ...selectLikeStreetStyles,
+  container: (base: any) => ({
+    ...base,
+    width: "100%",
+    minWidth: "7rem",
+    maxWidth: "10rem",
+  }),
+};
 
 export default function Header({localLoja, pageLoja}: {localLoja: any, pageLoja: string | null}) {
 
-
     const [loja, setLoja] = useState<string>('Lojas Roland Garros')
-    // const [lojaPage, setLojaPage] = useState<string>('')
-
-    // useEffect(() =>{
-    //   localLoja(loja);
-    //     },[loja])
+    const [resetCounter, setResetCounter] = useState(0)
+    const router = useRouter();
 
     function handleLocalLoja(loja: string) {
       setLoja(loja);
       localLoja(loja);
+      if (pageLoja !== null) {
+        router.push(`/?loja=${encodeURIComponent(loja)}`);
+      }
     }
-    
-   
+
+    function handleStreetSelect(lojaVal: string) {
+      // set street selection and reset other controls (search, category, product)
+      setLoja(lojaVal);
+      localLoja(lojaVal);
+      setResetCounter(counter => counter + 1);
+      if (pageLoja !== null) {
+        router.push(`/?loja=${encodeURIComponent(lojaVal)}`);
+      }
+    }
+
+    function handleHomeClick() {
+      setLoja('')
+      localLoja('')
+      setResetCounter(counter => counter + 1)
+    }
+
+    const selectedStreetOption = streetOptions.find(option => option.value === loja) ?? null;
+    const menuPortalTarget = typeof window !== "undefined" ? document.body : null;
+
     return (
       <>
-        <div className={`${sedan.className} flex flex-col sm:flex-row p-0 justify-between`}>
-
-          <div className={pageLoja !== null ? 'rounded-md' : "w-2/3 sm:w-1/3 flex rounded-md text-lg bg-green-500"} style={{marginBottom: '0.5rem'}}>
-          {/* icone casa-home para voltar ao inicio */}
-
-                <Link className="w-14" href={"/"}>
-                <div onClick={() => console.log("voltar ao inicio")}>
-                <Image src="/home_24dp_FILL0_wght400_GRAD0_opsz24.svg" width={30} height={30} alt="logo"/></div></Link>
-
-            <select className={pageLoja !== null ? "hidden" : "w-full text-black text-lg sm:text-lg py-1 rounded-md"} name="lojas" onChange={(e) => 
-                handleLocalLoja(e.target.value)
-                } aria-label="Selecione a Loja" style={{ height: '100%'}}>
-              <option className="text-black" value="Lojas Roland Garros">Lojas Roland Garros</option>
-              <option className="text-black" value="Lojas Jardim Japão">Lojas Jardim Japão</option>
-              <option className="text-black" value="Lojas Edu Chaves">Lojas Edu Chaves</option>
-            </select>
-          </div>
-          <div className='w-2/5 sm:w-1/3 md:w-2/5'>
-              <Search placeholder= "Buscar pelas melhores lojas" />
-          </div>
-        </div>
-
-        <nav className="text-white hidden">
+        <nav className="">
           <ul className="flex flex-row items-start sm:items-center justify-between">
-            <li className="text-lg sm:text-2xl font-light hover:scale-110 cursor-pointer" onClick={() => {
-              
-              setLoja('Farmácias');
-              // handleNavigate();
-              
-            }}>Farmácia</li>
-            <li className="text-lg sm:text-2xl font-light hover:scale-110 cursor-pointer" onClick={() => {
-              setLoja('Mercados');
-            }}>Mercado</li>
-            <li className="text-lg sm:text-2xl font-light hover:scale-110 cursor-pointer" onClick={() => {
-              setLoja('Celulares');
-            }}>Celular</li>
-            {/* <li className="text-2xl font-light hover:scale-110 cursor-pointer" onClick={() => {
-              setLoja('Vestuário');
-            }}>Vestuário</li> */}
-            {/* <li className="text-2xl font-light hover:scale-110 cursor-pointer" onClick={() => {
-              setLoja('Variedades');
-            }}>Variedades</li> */}
-            <li className="text-lg sm:text-2xl font-light hover:scale-110 cursor-pointer" onClick={() => {
-              setLoja('Óticas');
-            }}>Ótica</li>
+            <li>
+              <Link className="w-14" href={"/"}>
+                <div onClick={handleHomeClick} className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-transparent text-white font-bold text-sm leading-none cursor-pointer">
+                  <p>JB</p>
+                </div>
+              </Link>
+            </li>
+            <li className="w-[13rem] sm:w-[16rem] transition-hover duration-300 hover:scale-110">
+              <Select
+                key={`street-${resetCounter}`}
+                options={streetOptions}
+                value={selectedStreetOption}
+                isSearchable={false}
+                placeholder="Selecione a Avenida"
+                styles={streetSelectStyles}
+                menuPortalTarget={menuPortalTarget}
+                onChange={(option: any) => option?.value && handleStreetSelect(option.value)}
+                aria-label="Selecione a Loja"
+              />
+            </li>
+            <li className="w-[7rem] sm:w-[8rem] transition-hover duration-300 hover:scale-110">
+              <Select
+                key={`category-${resetCounter}`}
+                options={categoryOptions}
+                isSearchable={false}
+                placeholder="Categorias"
+                styles={secondarySelectStyles}
+                menuPortalTarget={menuPortalTarget}
+                onChange={(option: any) => option?.value && handleLocalLoja(option.value)}
+                aria-label="Selecione a Categoria"
+              />
+            </li>
+            <li className="w-[7rem] sm:w-[8rem] flex flex-row items-center hover:scale-110">
+              <Select
+                key={`product-${resetCounter}`}
+                options={productOptions}
+                isSearchable={false}
+                placeholder="Produtos"
+                styles={secondarySelectStyles}
+                menuPortalTarget={menuPortalTarget}
+                onChange={(option: any) => option?.value && handleLocalLoja(option.value)}
+                aria-label="Selecione o Produto"
+              />
+            </li>
+            <li>
+              <Search key={`search-${resetCounter}`} placeholder="Buscar pelas melhores lojas" />
+            </li>
           </ul>
         </nav>
       </>

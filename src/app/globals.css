@@ -25,25 +25,17 @@
 body {
   color: rgb(var(--foreground-rgb));
   /* background-color: rgb(241 245 249); */
-  background-color: rgb(195, 197, 200);
+  background-color: rgb(255, 255, 255);
   
 }
 .container {
   padding-left: 6rem;
   padding-right: 6rem;
 }
-.categories-container {
-  height: 270px;
-  overflow-x: hidden;
+.header-container {
+  /* background-color: #6B6E4F; */
 }
-.categories {
-  border-bottom: 1px dashed rgb(59, 131, 246);
 
-}
-.categories:hover {
- background-color: rgb(59, 131, 246);
- transform: scale(1.02);
-}
 
 @media screen and (min-width: 768px) {
   .menuHidden{

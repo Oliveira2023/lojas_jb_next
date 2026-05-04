@@ -1,19 +1,21 @@
 import { GoogleMapsEmbed } from "@next/third-parties/google"
 
-export default function Maps({local, width}: any) {
-    // const apiKey = process.env.NEXT_PUBLIC_MapsApi;
-    const apiKey = 'AIzaSyD310CkG0wT9mqQgjapyhsnBDA4QycESjM';
-    // const apiKey = process.env.MapsApi ?? 'AIzaSyD310CkG0wT9mqQgjapyhsnBDA4QycESjM'
-    // o problema aqui é que este componente é client side, pra poder usar a chave de api corretamente tenho que tornar server side.
+export default function Maps({ local, width, mapsApi }: any) {
+  if (!mapsApi) {
     return (
-        <GoogleMapsEmbed
-        apiKey={apiKey ?? 'defaultApiKey'}
-        height={width}
-        width={width}
-        mode="place"
-        q={local}
-        />
-    )
-        
- 
+      <div className="flex h-full min-h-[323px] w-full items-center justify-center bg-slate-100 text-sm text-slate-500">
+        Mapa indisponível no momento.
+      </div>
+    );
+  }
+
+  return (
+    <GoogleMapsEmbed
+      apiKey={mapsApi}
+      height={width}
+      width={width}
+      mode="place"
+      q={local}
+    />
+  )
 }

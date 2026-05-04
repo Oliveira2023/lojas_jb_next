@@ -1,6 +1,8 @@
 import Link from "next/link";
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from "react";
 import manageHight from "@utils/manageHight";
+import styles from "./produto.module.css";
+
 export default function Categories({adjustcategoria, categoriaHome}: any) {
 
     // const [categoria, updateCategoria] = useState<string>('Lojas Roland Garros')
@@ -41,7 +43,7 @@ export default function Categories({adjustcategoria, categoriaHome}: any) {
 
     return (
         <div className="p-0">
-            <h1 className="bg-gray-500 flex items-center justify-center text-2xl w-full text-white border h-10">Categorias</h1>
+            <h1 className={`${styles.title} bg-yellow flex items-center justify-center text-2xl w-full text-white border h-10`}>Categorias</h1>
             <div className="overflow-y-scroll mt-1 bg-slate-50" style={{height: `${altura}px`, overflowX: "hidden"}}>
                 <ul className="">
                     {/* o que vai escrito sobre o hero é nome do updateCategoria(este nome) */}
@@ -67,13 +69,13 @@ export default function Categories({adjustcategoria, categoriaHome}: any) {
                         <Link href={"/#cards"}><button className="w-full" onClick={() => handleSelect('Avículas')}>Avículas</button></Link>
                     </li>
                     <li className="categories p-2 text-2xl">
-                        <Link href={"/#cards"}><button className="w-full" onClick={() => handleSelect('Categoria 8')}>Categoria 8</button></Link>
+                        <Link href={"/#cards"}><button className="w-full" onClick={() => handleSelect('Utilidades')}>Utilidades</button></Link>
                     </li>
                     <li className="categories p-2 text-2xl">
-                        <Link href={"/#cards"}><button className="w-full" onClick={() => handleSelect('Categoria 9')}>Categoria 9</button></Link>
+                        <Link href={"/#cards"}><button className="w-full" onClick={() => handleSelect('Presentes')}>Presentes</button></Link>
                     </li>
                     <li className="categories p-2 text-2xl">
-                        <Link href={"/#cards"}><button className="w-full" onClick={() => handleSelect('Categoria 10')}>Categoria 10</button></Link>
+                        <Link href={"/#cards"}><button className="w-full" onClick={() => handleSelect('Restaurantes')}>Restaurantes</button></Link>
                     </li>
                 </ul>
             </div>

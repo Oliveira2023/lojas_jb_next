@@ -1,18 +1,7 @@
-import { ListaLojas } from "@utils/listaLojas";
-// const fetchLojas = require('./fetchLojas');
-
-async function manipulaMongoTeste() {
-  // const lojas = await fetchLojas();
-  // console.log(lojas);
+// src/utils/filterStore.ts
+export default async function FilterStore(grupo: string) {
+  const query = grupo && grupo !== 'all' ? `?grupo=${grupo}` : '';
+  const res = await fetch(`/api/stores${query}`);
+  const lojasEncontradas = await res.json();
+  return { lojasEncontradas };
 }
-
-export default function FilterStore(grupo: string) {
-  
-    // const lojasEncontradas = ListaLojas.filter((loja: { grupo: string; categoria: string }) => loja.grupo === grupo || loja.categoria === grupo);
-
-    const lojasEncontradas = ListaLojas.filter(loja => loja.grupo === grupo || loja.categoria === grupo);
-    
-    return { lojasEncontradas };
-  }
-  
-  

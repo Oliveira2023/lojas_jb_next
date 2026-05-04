@@ -1,6 +1,6 @@
 const { MongoClient } = require('mongodb');
 
-const uri=process.env.MONGODB_URI; // URL de conexão com o MongoDB
+const uri=process.env.local.MONGODB_URI; // URL de conexão com o MongoDB
 const client = new MongoClient(uri);
 
 async function connectToDatabase() {

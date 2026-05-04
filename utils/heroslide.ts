@@ -1,16 +1,23 @@
 export const images = [
     {
         Id : 1,
-        src : '/carroussel/pexels-mikael-buchholtz-15445264.jpg',
+        src : '/carroussel/pexels-timothy-paule-ii-614774-2002719RD.jpg',
         alt : 'banner principal',
-        title : 'Studio WO',
-        description: "Cortes, escova, alisamento."
+        title : 'Be Brilhant',
+        description: "Be yourself, be unique, be brilliant. Encontre o que há de melhor para você."
     },
     {
         Id : 2,
-        src : '/carroussel/pexels-bolos-15346745.jpg',
+        src : '/carroussel/casaDeBolosGeminiRC.png',
         alt : 'banner principal',
-        title : 'Doces e Bolos',
-        description: "Delicias finas feitas com carinho."
-    }
+        title : 'Casa de Bolos',
+        description: "Roland Garros, 1871"
+    },
+    {
+        Id : 3, 
+        src : 'https://placehold.co/1280x844/orange/white?text=Lojas%20JB',
+        alt : 'banner principal',
+        title : 'Lojas JB',
+        description: "Placehold.co"
+    },
 ]
