@@ -3,31 +3,40 @@ import pool from '@/app/api/db';
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const grupo = searchParams.get('grupo');
-  const query = searchParams.get('q');
+  const street = searchParams.get('street');
+  const category = searchParams.get('category');
+  const product = searchParams.get('product');
+
+  console.log('Received query parameters:', { street, category, product });
+
+  const conditions: string[] = [];
+  const values: any[] = [];
+
+  if (street) {
+    values.push(street);
+    conditions.push(`grupo ILIKE $${values.length}`);
+  }
+
+  if (category) {
+    values.push(category);
+    conditions.push(`categoria ILIKE $${values.length}`);
+  }
+
+  if (product) {
+    values.push(product);
+    conditions.push(`product ILIKE $${values.length}`);
+  }
+
+  const whereClause = conditions.length ? `WHERE ${conditions.join(' AND ')}` : '';
 
   try {
-    let result;
-
-    if (query) {
-      result = await pool.query(
+    const result = await pool.query(
         `SELECT *
          FROM stores
-         WHERE nome_loja ILIKE $1
-            OR categoria ILIKE $1
-            OR grupo ILIKE $1
+         ${whereClause}
          ORDER BY id`,
-        [`%${query}%`]
+        values
       );
-    } else if (!grupo || grupo === 'all') {
-      result = await pool.query('SELECT * FROM stores ORDER BY id');
-    } else {
-      result = await pool.query(
-        'SELECT * FROM stores WHERE grupo = $1 OR categoria = $1 ORDER BY id',
-        [grupo]
-      );
-    }
-
     return Response.json(result.rows);
   } catch (error) {
     return Response.json({ error: 'Failed to fetch stores' }, { status: 500 });

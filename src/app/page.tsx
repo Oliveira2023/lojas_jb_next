@@ -23,15 +23,18 @@ export default function Home() {
   // const lojasEncontradas = filteredLojas.lojasEncontradas;
   const [lojasEncontradas, setLojasEncontradas] = useState<any[]>([]);
 
+  const [isOpen, setIsOpen] = useState<boolean>(true);
+  const [street, setStreet] = useState<string>('');
+  const [category, setCategory] = useState<string>('');
+  const [product, setProduct] = useState<string>('');
+
   useEffect(() => {
-    FilterStore(grupo).then(({ lojasEncontradas }) => {
+    console.log('useEffect triggered with:', { street, category, product });
+    FilterStore(street, category, product).then(({ lojasEncontradas }) => {
     setLojasEncontradas(lojasEncontradas);
   });
-}, [grupo]);
-  const [isOpen, setIsOpen] = useState<boolean>(true);
-  const node: any = useRef(null);
-  const [teste, updateTeste] = useState<number>(0);
-  
+  }, [street, category, product]);
+ 
   const toggleMenu = () => {
     console.log("Toggling menu", isOpen);
     setIsOpen(!isOpen);
@@ -75,22 +78,20 @@ export default function Home() {
     }
   }, [loja])
 
-  // useEffect(() => {
-  //   console.log("grupo atualizado: " + grupo);
-    
-  //   setIsOpen(window.innerWidth > 768);
-  // }, [grupo]);
-
   const updateSelecao = (selecao: string) => {
     updateLoja(selecao)
     
   }
 
   useEffect(() => {
-    const lojaFromQuery = searchParams.get('loja') ?? '';
-    if (lojaFromQuery) {
-      updateLoja(lojaFromQuery);
-    }
+    const streetValue = searchParams.get('street') ?? '';
+    const categoryValue = searchParams.get('category') ?? '';
+    const productValue = searchParams.get('product') ?? '';
+    
+    setStreet(streetValue);
+    setCategory(categoryValue);
+    setProduct(productValue);
+
   }, [searchParams]);
 
   return (
@@ -101,7 +102,9 @@ export default function Home() {
       </div>
 
       <div className="header-container w-full pl-4 pr-4 sm:pl-24 sm:pr-24 pt-2 pb-2 bg-[#6B6E4F] ">
-        <Header localLoja={updateSelecao} pageLoja={null}/>
+        <Header 
+        pageLoja={null}
+        />
       </div>
 
       <div className="w-full pl-4 pr-4 sm:pl-24 sm:pr-24">

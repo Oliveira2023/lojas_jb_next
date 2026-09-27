@@ -1,30 +1,22 @@
 
 import Search from "@/app/ui/Search";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 import Select from "react-select";
+import FetchCategories from "@utils/fetchCategories";
+
+type HeaderProps = {
+  pageLoja: string | null;
+};
 
 const streetOptions = [
-  { value: "Lojas Roland Garros", label: "Lojas Roland Garros" },
-  { value: "Lojas Jardim Japão", label: "Lojas Jardim Japão" },
-  { value: "Lojas Edu Chaves", label: "Lojas Edu Chaves" },
+  { value: "roland", label: "Lojas Roland Garros" },
+  { value: "japao", label: "Lojas Jardim Japão" },
+  { value: "chaves", label: "Lojas Edu Chaves" },
 ];
 
-const categoryOptions = [
-  { value: "Farmácias", label: "Farmácia" },
-  { value: "Mercados", label: "Mercado" },
-  { value: "Bebidas", label: "Bebidas" },
-  { value: "Celulares", label: "Celulares" },
-  { value: "Óticas", label: "Óticas" },
-  { value: "Vestuário", label: "Vestuário" },
-  { value: "Construção", label: "Construção" },
-  { value: "Salão de Beleza", label: "Salão de Beleza" },
-  { value: "Avículas", label: "Avículas" },
-  { value: "Utilidades", label: "Utilidades" },
-  { value: "Presentes", label: "Presentes" },
-  { value: "Restaurantes", label: "Restaurantes" },
-];
+
 
 const productOptions = [
   { value: "Remédios", label: "Remédios" },
@@ -106,6 +98,8 @@ const selectLikeStreetStyles = {
   }),
 };
 
+
+
 const streetSelectStyles = {
   ...selectLikeStreetStyles,
   container: (base: any) => ({
@@ -126,37 +120,72 @@ const secondarySelectStyles = {
   }),
 };
 
-export default function Header({localLoja, pageLoja}: {localLoja: any, pageLoja: string | null}) {
+export default function Header({pageLoja}: HeaderProps) {
 
-    const [loja, setLoja] = useState<string>('Lojas Roland Garros')
     const [resetCounter, setResetCounter] = useState(0)
     const router = useRouter();
+    const searchParams = useSearchParams();
 
-    function handleLocalLoja(loja: string) {
-      setLoja(loja);
-      localLoja(loja);
-      if (pageLoja !== null) {
-        router.push(`/?loja=${encodeURIComponent(loja)}`);
-      }
+    const [street, setStreet] = useState("");
+    const [category, setCategory] = useState("");
+    const [product, setProduct] = useState("");
+    const [categoryOptions, setCategoryOptions] = useState<{ value: string; label: string }[]>([]);
+
+    useEffect(() => {
+      FetchCategories().then(({ categoryOptions }) => {
+        setCategoryOptions(categoryOptions);
+      })
+    }, []);
+
+    useEffect(() => {
+      setStreet(searchParams.get('street') ?? '');
+      setCategory(searchParams.get('category') ?? '');
+      setProduct(searchParams.get('product') ?? '');
+    }, [searchParams]);
+
+    function buildFilterQuery(
+      streetValue: string,
+      categoryValue: string,
+      productValue: string
+    ) {
+      const params = new URLSearchParams();
+      if (streetValue) params.append("street", streetValue);
+      if (categoryValue) params.append("category", categoryValue);
+      if (productValue) params.append("product", productValue);
+      const queryString = params.toString();
+      console.log('Built filter query:', queryString);
+      return queryString ? `/?${queryString}` : "/";
     }
 
-    function handleStreetSelect(lojaVal: string) {
+    
+    function handleStreetSelect(streetValue: string) {
+      console.log('handleStreetSelect:', streetValue);
       // set street selection and reset other controls (search, category, product)
-      setLoja(lojaVal);
-      localLoja(lojaVal);
-      setResetCounter(counter => counter + 1);
-      if (pageLoja !== null) {
-        router.push(`/?loja=${encodeURIComponent(lojaVal)}`);
-      }
+
+      setStreet(streetValue);
+      setCategory("");
+      setProduct("");
+      router.push(buildFilterQuery(streetValue, "", ""));
+    }
+
+    function handleCategorySelect(categoryValue: string) {
+
+      setCategory(category);
+      setProduct("");
+      router.push(buildFilterQuery(street, categoryValue, ""));
+    }
+
+    function handleProductSelect(productValue: string) {
+      setProduct(productValue);
+      router.push(buildFilterQuery(street, category, productValue));
     }
 
     function handleHomeClick() {
-      setLoja('')
-      localLoja('')
-      setResetCounter(counter => counter + 1)
+      setStreet('')
+      setCategory('')
+      setProduct('')
     }
 
-    const selectedStreetOption = streetOptions.find(option => option.value === loja) ?? null;
     const menuPortalTarget = typeof window !== "undefined" ? document.body : null;
 
     return (
@@ -165,45 +194,49 @@ export default function Header({localLoja, pageLoja}: {localLoja: any, pageLoja:
           <ul className="flex flex-row items-start sm:items-center justify-between">
             <li>
               <Link className="w-14" href={"/"}>
-                <div onClick={handleHomeClick} className="flex h-8 w-8 items-center justify-center rounded-full border-2 border-white bg-transparent text-white font-bold text-sm leading-none cursor-pointer">
+                <div onClick={handleHomeClick} className="flex h-8 w-8 items-center justify-center rounded-full text-white font-bold text-sm leading-none transition-hover duration-300 hover:scale-110" style={{ backgroundColor: "#000", border: "2px solid #fff" }}>
                   <p>JB</p>
                 </div>
               </Link>
             </li>
             <li className="w-[13rem] sm:w-[16rem] transition-hover duration-300 hover:scale-110">
               <Select
-                key={`street-${resetCounter}`}
+                key={'street-select'}
                 options={streetOptions}
-                value={selectedStreetOption}
+                value={streetOptions.find(option => option.value === street) ?? null}
                 isSearchable={false}
                 placeholder="Selecione a Avenida"
                 styles={streetSelectStyles}
                 menuPortalTarget={menuPortalTarget}
-                onChange={(option: any) => option?.value && handleStreetSelect(option.value)}
-                aria-label="Selecione a Loja"
+                onChange={(option: any) =>  {option?.value && handleStreetSelect(option.value);
+                  // console.log('Selected street:', option.value)
+                }}
+                aria-label="Selecione a avenida"
               />
             </li>
             <li className="w-[7rem] sm:w-[8rem] transition-hover duration-300 hover:scale-110">
               <Select
-                key={`category-${resetCounter}`}
+                key={'category-select'}
                 options={categoryOptions}
-                isSearchable={false}
+                value={categoryOptions.find(option => option.value === category) ?? null}
+                  isSearchable={false}
                 placeholder="Categorias"
                 styles={secondarySelectStyles}
                 menuPortalTarget={menuPortalTarget}
-                onChange={(option: any) => option?.value && handleLocalLoja(option.value)}
+                onChange={(option: any) => option?.value && handleCategorySelect(option.value)}
                 aria-label="Selecione a Categoria"
               />
             </li>
             <li className="w-[7rem] sm:w-[8rem] flex flex-row items-center hover:scale-110">
               <Select
-                key={`product-${resetCounter}`}
+                key={'product-select'}
                 options={productOptions}
+                value={productOptions.find(option => option.value === product) ?? null}
                 isSearchable={false}
                 placeholder="Produtos"
                 styles={secondarySelectStyles}
                 menuPortalTarget={menuPortalTarget}
-                onChange={(option: any) => option?.value && handleLocalLoja(option.value)}
+                onChange={(option: any) => option?.value && handleProductSelect(option.value)}
                 aria-label="Selecione o Produto"
               />
             </li>
