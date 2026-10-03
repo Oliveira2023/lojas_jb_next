@@ -29,7 +29,6 @@ export default function Home() {
   const [product, setProduct] = useState<string>('');
 
   useEffect(() => {
-    console.log('useEffect triggered with:', { street, category, product });
     FilterStore(street, category, product).then(({ lojasEncontradas }) => {
     setLojasEncontradas(lojasEncontradas);
   });

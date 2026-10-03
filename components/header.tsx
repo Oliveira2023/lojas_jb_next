@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import Select from "react-select";
 import FetchCategories from "@utils/fetchCategories";
+import FetchProducts from "@utils/fetchProducts";
 
 type HeaderProps = {
   pageLoja: string | null;
@@ -14,17 +15,6 @@ const streetOptions = [
   { value: "roland", label: "Lojas Roland Garros" },
   { value: "japao", label: "Lojas Jardim Japão" },
   { value: "chaves", label: "Lojas Edu Chaves" },
-];
-
-
-
-const productOptions = [
-  { value: "Remédios", label: "Remédios" },
-  { value: "Roupas", label: "Roupas" },
-  { value: "Pão", label: "Pão" },
-  { value: "Vinhos", label: "Vinhos" },
-  { value: "Refrigerante", label: "Refrigerante" },
-  { value: "Cerveja", label: "Cerveja" },
 ];
 
 const selectLikeStreetStyles = {
@@ -129,11 +119,15 @@ export default function Header({pageLoja}: HeaderProps) {
     const [street, setStreet] = useState("");
     const [category, setCategory] = useState("");
     const [product, setProduct] = useState("");
+    const [productOptions, setProductOptions] = useState<{ value: string; label: string }[]>([]);
     const [categoryOptions, setCategoryOptions] = useState<{ value: string; label: string }[]>([]);
 
     useEffect(() => {
       FetchCategories().then(({ categoryOptions }) => {
         setCategoryOptions(categoryOptions);
+      })
+      FetchProducts().then(({ productOptions }) => {
+        setProductOptions(productOptions);
       })
     }, []);
 
@@ -156,12 +150,8 @@ export default function Header({pageLoja}: HeaderProps) {
       console.log('Built filter query:', queryString);
       return queryString ? `/?${queryString}` : "/";
     }
-
     
     function handleStreetSelect(streetValue: string) {
-      console.log('handleStreetSelect:', streetValue);
-      // set street selection and reset other controls (search, category, product)
-
       setStreet(streetValue);
       setCategory("");
       setProduct("");
@@ -169,8 +159,7 @@ export default function Header({pageLoja}: HeaderProps) {
     }
 
     function handleCategorySelect(categoryValue: string) {
-
-      setCategory(category);
+      setCategory(categoryValue);
       setProduct("");
       router.push(buildFilterQuery(street, categoryValue, ""));
     }
@@ -219,7 +208,7 @@ export default function Header({pageLoja}: HeaderProps) {
                 key={'category-select'}
                 options={categoryOptions}
                 value={categoryOptions.find(option => option.value === category) ?? null}
-                  isSearchable={false}
+                isSearchable
                 placeholder="Categorias"
                 styles={secondarySelectStyles}
                 menuPortalTarget={menuPortalTarget}
@@ -232,7 +221,7 @@ export default function Header({pageLoja}: HeaderProps) {
                 key={'product-select'}
                 options={productOptions}
                 value={productOptions.find(option => option.value === product) ?? null}
-                isSearchable={false}
+                isSearchable
                 placeholder="Produtos"
                 styles={secondarySelectStyles}
                 menuPortalTarget={menuPortalTarget}

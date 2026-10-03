@@ -2,6 +2,7 @@
 import pool from '@/app/api/db';
 
 export async function GET() {
+  
   try {
     const result = await pool.query(
       `SELECT DISTINCT categoria

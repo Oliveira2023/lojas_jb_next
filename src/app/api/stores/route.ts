@@ -23,22 +23,33 @@ export async function GET(request: Request) {
   }
 
   if (product) {
-    values.push(product);
-    conditions.push(`product ILIKE $${values.length}`);
+    console.log('Filtering by product:', product);
+    values.push(`%${product}%`);
+    conditions.push(`
+      EXISTS (
+        SELECT 1
+        FROM store_products sp
+        INNER JOIN products p
+        ON p.id = sp.product_id
+        WHERE sp.store_id = s.id
+        AND p.nome ILIKE $${values.length})
+      `);
   }
-
+console.log('values:', values);
   const whereClause = conditions.length ? `WHERE ${conditions.join(' AND ')}` : '';
-
+//console.log(whereClause ? `WHERE clause: ${whereClause}` : 'No WHERE clause applied.');
   try {
     const result = await pool.query(
         `SELECT *
-         FROM stores
+         FROM stores s
          ${whereClause}
-         ORDER BY id`,
+         ORDER BY s.nome_loja ASC`,
         values
       );
+     console.log(whereClause ? `WHERE clause: ${whereClause}` : 'No WHERE clause applied.');
     return Response.json(result.rows);
   } catch (error) {
+    console.log(whereClause ? `WHERE clause catch: ${whereClause}` : 'No WHERE clause applied.');
     return Response.json({ error: 'Failed to fetch stores' }, { status: 500 });
   }
 }
