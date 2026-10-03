@@ -1,4 +1,3 @@
-
 import Search from "@/app/ui/Search";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -136,6 +135,28 @@ export default function Header({pageLoja}: HeaderProps) {
       setCategory(searchParams.get('category') ?? '');
       setProduct(searchParams.get('product') ?? '');
     }, [searchParams]);
+
+    useEffect(() => {
+      FetchCategories(street)
+        .then(({ categoryOptions }) => {
+          setCategoryOptions(categoryOptions);
+        })
+        .catch((error) => {
+          console.error("Failed to load categories:", error);
+          setCategoryOptions([]);
+        });
+    }, [street]);
+
+    useEffect(() => {
+    FetchProducts(street, category)
+      .then(({ productOptions }) => {
+        setProductOptions(productOptions);
+      })
+      .catch((error) => {
+        console.error("Failed to load products:", error);
+        setProductOptions([]);
+      });
+  }, [street, category]);
 
     function buildFilterQuery(
       streetValue: string,
