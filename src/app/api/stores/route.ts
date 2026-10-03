@@ -46,10 +46,8 @@ console.log('values:', values);
          ORDER BY s.nome_loja ASC`,
         values
       );
-     console.log(whereClause ? `WHERE clause: ${whereClause}` : 'No WHERE clause applied.');
     return Response.json(result.rows);
   } catch (error) {
-    console.log(whereClause ? `WHERE clause catch: ${whereClause}` : 'No WHERE clause applied.');
     return Response.json({ error: 'Failed to fetch stores' }, { status: 500 });
   }
 }

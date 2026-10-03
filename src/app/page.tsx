@@ -27,10 +27,12 @@ export default function Home() {
   const [street, setStreet] = useState<string>('');
   const [category, setCategory] = useState<string>('');
   const [product, setProduct] = useState<string>('');
+  const [numeroLojas, setNumeroLojas] = useState<number>(0);
 
   useEffect(() => {
     FilterStore(street, category, product).then(({ lojasEncontradas }) => {
     setLojasEncontradas(lojasEncontradas);
+    setNumeroLojas(lojasEncontradas.length);
   });
   }, [street, category, product]);
  
@@ -107,7 +109,8 @@ export default function Home() {
       </div>
 
       <div className="w-full pl-4 pr-4 sm:pl-24 sm:pr-24">
-        <div className="pointer-events-none h-8 sm:h-12 rounded-b-2xl bg-white/25 backdrop-blur-sm border-b border-white/30 shadow-sm"></div>
+        <div className="pointer-events-none h-8 sm:h-12 rounded-b-2xl bg-white/25 backdrop-blur-sm border-b border-white/30 shadow-sm flex items-center justify-center">
+        <p className="text-center">Mostrando {numeroLojas} Lojas abaixo</p></div>
       </div>
       
       {/* container categorias e banners */}

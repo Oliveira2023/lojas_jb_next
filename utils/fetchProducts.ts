@@ -1,7 +1,15 @@
 // src/utils/fetchProducts.ts
-export default async function FetchProducts() {
+export default async function FetchProducts(street?: string, category?: string) {
   console.log('FetchProducts called');
-  const res = await fetch('/api/productlist');
+
+  const params = new URLSearchParams();
+  if (street) {
+    params.set('street', street);
+  }
+  if (category) {
+    params.set('category', category);
+  }
+  const res = await fetch(`/api/productlist?${params.toString()}`);
 
   if (!res.ok) {
     throw new Error('Failed to fetch product options');
