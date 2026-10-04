@@ -23,7 +23,7 @@ export default function Home() {
   // const lojasEncontradas = filteredLojas.lojasEncontradas;
   const [lojasEncontradas, setLojasEncontradas] = useState<any[]>([]);
 
-  const [isOpen, setIsOpen] = useState<boolean>(true);
+  
   const [street, setStreet] = useState<string>('');
   const [category, setCategory] = useState<string>('');
   const [product, setProduct] = useState<string>('');
@@ -36,11 +36,7 @@ export default function Home() {
   });
   }, [street, category, product]);
  
-  const toggleMenu = () => {
-    console.log("Toggling menu", isOpen);
-    setIsOpen(!isOpen);
-    console.log("isOpen:", isOpen);
-  }
+
   // seleção da catetorias
   // Grupo selecionado no select das avenidas ou nas categorias
   // updateselecao recebe a cagegoria atualizando a selecao atualiza o grupo
@@ -98,27 +94,17 @@ export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-0 ">
       {/* menu dispositivos moveis -icone */}
-      <div className="absolute top-2 right-0 pr-8" onClick={toggleMenu}>
-          <svg className="menuHidden cursor-pointer" xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#000"><path d="M120-240v-80h720v80H120Zm0-200v-80h720v80H120Zm0-200v-80h720v80H120Z"/></svg>
+      <div className="header-container relative w-full pl-4 pr-4 sm:pl-24 sm:pr-24 pt-2 pb-2 bg-[#6B6E4F] ">
+        <Header pageLoja={null}/>
       </div>
-
-      <div className="header-container w-full pl-4 pr-4 sm:pl-24 sm:pr-24 pt-2 pb-2 bg-[#6B6E4F] ">
-        <Header 
-        pageLoja={null}
-        />
-      </div>
-
       <div className="w-full pl-4 pr-4 sm:pl-24 sm:pr-24">
         <div className="pointer-events-none h-8 sm:h-12 rounded-b-2xl bg-white/25 backdrop-blur-sm border-b border-white/30 shadow-sm flex items-center justify-center">
-        <p className="text-center">Mostrando {numeroLojas} Lojas abaixo</p></div>
+        <p className="text-center">Mostrando {numeroLojas} Lojas abaixo</p>
+        </div>
       </div>
       
-      {/* container categorias e banners */}
+      {/* container banners */}
       <div className="z-1 w-full items-start justify-between font-mono text-sm flex flex-row pl-4 sm:pl-24 pr-4 sm:pr-24 pt-4 pb-1 ">
-        {/* menu das categorias fechado para celulares - lateral para desktop */}
-        {/* <div ref={node} className= {isOpen ? 'z-10 child-hero mt-2 w-[15%] sm:w-[15%] sm:static top-8 right-8' : 'hidden'}>
-          <Categories adjustcategoria={updateSelecao} categoriaHome={loja}/>
-        </div> */}
 
         {/* banner central da pagina - carrousel */}
         <div className="mt-4 w-full h-[80vh] flex flex-row items-start justify-between bg-[#F1F5F0]">
@@ -135,10 +121,6 @@ export default function Home() {
             </p>
           </div>
         </div>
-        {/* menu para busca de produtos, copiei das categorias */}
-        {/* <div ref={node} className= {isOpen ? 'z-10 child-hero mt-2 w-[15%] sm:w-[15%] sm:static top-8 right-8' : 'hidden'}>
-          <Produtos adjustcategoria={updateSelecao} categoriaHome={loja}/>
-        </div> */}
       </div>
 
       <div className="w-full px-4 sm:px-24">
