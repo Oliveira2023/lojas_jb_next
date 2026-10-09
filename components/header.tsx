@@ -1,3 +1,4 @@
+"use client";
 import Search from "@/app/ui/Search";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -205,7 +206,14 @@ export default function Header({ pageLoja }: HeaderProps) {
       setIsOpen((currentValue) => !currentValue);
     }
 
-    const menuPortalTarget = typeof window !== "undefined" ? document.body : null;
+    // const menuPortalTarget = typeof window !== "undefined" ? document.body : null;
+
+    const [menuPortalTarget, setMenuPortalTarget] =
+      useState<HTMLElement | null>(null);
+
+    useEffect(() => {
+      setMenuPortalTarget(document.body);
+    }, []);
 
     return (
       <>

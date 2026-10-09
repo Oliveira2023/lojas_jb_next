@@ -70,15 +70,13 @@ export default function Hero({local}: {local: string}) {
       }
     return (
         <>
-            {/* <h1 className="bg-[#3B9F4E] mx-1 flex items-center justify-center text-1xl sm:text-3xl text-white h-10 border">{local}</h1> */}
-            {/*  carrousel + banner lateral */}
             <div id="hero" className="h-full flex flex-row justify-between" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
                 
                 {/* div carrousel */}
-                <div className="w-full h-full relative">
+                <div className="w-full aspect-[1280/844] relative">
                     {images.map((image, index) => (
                         <div key={image.Id} className={`${
-                            index === activeImgIndex ? "block w-full": "hidden"}`}>
+                            index === activeImgIndex ? "block w-full": "hidden"} relative`}>
                             <Image
                             src={image.src}
                             width={1280} height={844}
@@ -88,36 +86,36 @@ export default function Hero({local}: {local: string}) {
                             placeholder = 'empty'
                             style={{ objectFit: 'cover', width: '100%', height: '100%' }}
                             />
+                            <div className="text-center text-white bg-black bg-opacity-50 p-2 w-full absolute bottom-0">
+                                <p>{images[activeImgIndex].title}</p>
+                                <p>{images[activeImgIndex].description}</p>
+                            </div>
                         </div>
-                        
                     ))}
-                    <div className="text-center text-white bg-black bg-opacity-50 p-2 w-full absolute bottom-1">
-                        <p>{images[activeImgIndex].title}</p>
-                        <p>{images[activeImgIndex].description}</p>
+                    {/* arrows */}
+                    <div onClick={clickPrev} className="z-10 absolute top-1/2 left-1 -translate-y-1/2 hover:bg-opacity-50 hover:bg-slate-400 rounded-full cursor-pointer">
+                    <Image src={left} width={44} height={44} alt="seta a esquerda" />
+                    </div>
+                    <div onClick={clickNext} className="z-10 absolute top-1/2 right-1 -translate-y-1/2 hover:bg-opacity-50 hover:bg-slate-400 rounded-full cursor-pointer">
+                    <Image src={right} width={44} height={44} alt="seta a direita" />
                     </div>
 
-                    <div onClick={clickPrev} className="z-10 absolute top-1/2 left-1 transform-translate-y-1/2 hover:bg-opacity-50 hover:bg-slate-400 rounded-full cursor-pointer">
-                        <Image src={left} width={44} height={44} alt="seta a esquerda"></Image>
-                    </div>
-                    <div onClick={clickNext} className="absolute top-1/2 right-0 transform-translate-y-1/2 hover:bg-opacity-50 hover:bg-slate-400 rounded-full cursor-pointer">
-                        <Image src={right} width={44} height={44} alt=""></Image>
-                    </div>
-                    {/* Indicadores de página (dots) */}
-                    <div className="absolute bottom-[-6px] left-1/2 transform -translate-x-1/2 flex gap-2 z-10">
-                        {images.map((_, index) => (
+                    {/* dots (only this one block) */}
+                    <div className="absolute bottom-[-10px] left-1/2 -translate-x-1/2 flex gap-2 z-10">
+                        {images.map((image, index) => (
                             <div
-                                key={index}
-                                onClick={() => {
-                                    setIsManualMode(true);
-                                    stopAutoPlay();
-                                    setActiveImgIndex(index);
-                                }}
-                                className={`h-2 rounded-full transition-all cursor-pointer ${
-                                    index === activeImgIndex ? 'w-8 bg-gray-400' : 'w-2 bg-gray-400 hover:bg-gray-300'
-                                }`}
+                            key={index}
+                            onClick={() => {
+                                setIsManualMode(true);
+                                stopAutoPlay();
+                                setActiveImgIndex(index);
+                            }}
+                            className={`h-2 rounded-full transition-all cursor-pointer ${
+                                index === activeImgIndex ? 'w-8 bg-gray-400' : 'w-2 bg-gray-400 hover:bg-gray-300'
+                            }`}
                             />
                         ))}
-                    </div>             
+                    </div>
                 </div>
 
             </div>

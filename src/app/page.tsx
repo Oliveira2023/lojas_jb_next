@@ -105,24 +105,24 @@ export default function Home() {
       
       {/* container banners */}
       <div className="z-1 w-full items-start justify-between font-mono text-sm flex flex-row pl-4 sm:pl-24 pr-4 sm:pr-24 pt-4 pb-1 ">
-
         {/* banner central da pagina - carrousel */}
-        <div className="mt-4 w-full h-[80vh] flex flex-row items-start justify-between bg-[#F1F5F0]">
-          <div className=" w-[65%] h-[80vh] mx-0 p-2">
+        <div className="mt-4 w-full flex flex-col sm:flex-row items-stretch justify-between bg-[#F1F5F0]">
+          <div className="w-full sm:w-[65%] mx-0 p-2">
             <Hero local={loja} />
           </div>
-          <div className="w-[34%] h-[80vh] my-auto p-2 text-sm sm:text-lg flex flex-col items-center justify-center overflow-y-auto ">
-            <h1 className="mb-4 text-center">Lojas Jardim Brasil</h1>
-            <p>O site das lojas do Jardim Brasil foi criado para facilitar a busca por produtos e serviços em uma única plataforma, as 3 principais
-              avenidas do bairro estão representadas, cada uma com suas lojas e categorias específicas. O site é fácil de usar, 
-              basta selecionar a loja ou categoria desejada para encontrar o que precisa. Além disso, 
-              o site oferece promoções exclusivas e descontos para os clientes das lojas do Jardim Brasil. 
-              Com o site das lojas do Jardim Brasil, você pode economizar tempo e dinheiro, encontrando tudo o que precisa em um só lugar.
-            </p>
+          <div className="w-full sm:w-[34%] p-2 relative">
+            <div className="sm:absolute sm:inset-0 my-auto text-sm sm:text-lg flex flex-col overflow-y-auto ">
+              <h1 className="mb-2 text-center">Lojas Jardim Brasil</h1>
+              <p>O site das lojas do Jardim Brasil foi criado para facilitar a busca por produtos e serviços em uma única plataforma, as 3 principais
+                avenidas do bairro estão representadas, cada uma com suas lojas e categorias específicas. O site é fácil de usar,
+                basta selecionar a loja ou categoria desejada para encontrar o que precisa. Além disso,
+                o site oferece promoções exclusivas e descontos para os clientes das lojas do Jardim Brasil.
+                Com o site das lojas do Jardim Brasil, você pode economizar tempo e dinheiro, encontrando tudo o que precisa em um só lugar.
+              </p>
+            </div>
           </div>
         </div>
       </div>
-
       <div className="w-full px-4 sm:px-24">
         <div className="w-full flex items-center justify-center mt-4 mb-2">
           <Image className="border border-gray-300 sm:block" src="/logoHeader.png" width={816} height={445} alt="logo lojas jb"/>
@@ -131,11 +131,9 @@ export default function Home() {
       <div className="w-full sm:pl-24 sm:pr-24 z-10 bg-white/70 border-b border-white/20 shadow-sm py-4">
       <h1 className="text-center text-xl font-semibold text-blue-900 tracking-wide uppercase">Lojas</h1>
       </div>
-      <div id="cards" className="flex w-full items-center grid grid-cols-5 flex-row gap-1 m-1 pl-4 sm:pl-24 pr-4 sm:pr-24">
-
+      <div id="cards" className="flex w-full items-center grid grid-cols-3 sm:grid-cols-5 flex-row gap-1 m-1 pl-4 sm:pl-24 pr-4 sm:pr-24">
       {
         //  para encontrar as lojas
-
         lojasEncontradas.length > 0?(
           lojasEncontradas.map((lojas) => (
             <div key={lojas.id} className="w-[100%] mb-2">
@@ -145,7 +143,9 @@ export default function Home() {
                 nome={lojas.nome_loja}
                 numLoja={lojas.id}
               />
-              <p>{lojas.endereco}</p>
+              <p className= "whitespace-nowrap overflow-x-auto">
+                {lojas.endereco}
+              </p>
             </div>
           ))
         ) : (
@@ -153,9 +153,7 @@ export default function Home() {
             <p className="text-white text-center">Nenhum item corresponde a pesquisa.</p>
           </div>
         )
-
         // para encontrar as lojas
-        
       }
       </div>
       <div className="w-full pl-4 sm:pl-24 pr-4 sm:pr-24 mb-3">
