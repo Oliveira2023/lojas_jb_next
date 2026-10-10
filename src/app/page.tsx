@@ -131,7 +131,7 @@ export default function Home() {
       <div className="w-full sm:pl-24 sm:pr-24 z-10 bg-white/70 border-b border-white/20 shadow-sm py-4">
       <h1 className="text-center text-xl font-semibold text-blue-900 tracking-wide uppercase">Lojas</h1>
       </div>
-      <div id="cards" className="flex w-full items-center grid grid-cols-3 sm:grid-cols-5 flex-row gap-1 m-1 pl-4 sm:pl-24 pr-4 sm:pr-24">
+      <div id="cards" className="w-full items-start grid grid-cols-3 sm:grid-cols-5 gap-1 m-1 pl-4 sm:pl-24 pr-4 sm:pr-24">
       {
         //  para encontrar as lojas
         lojasEncontradas.length > 0?(
@@ -143,7 +143,7 @@ export default function Home() {
                 nome={lojas.nome_loja}
                 numLoja={lojas.id}
               />
-              <p className= "whitespace-nowrap overflow-x-auto">
+              <p className= "whitespace-nowrap overflow-x-auto text-xs text-gray-700 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                 {lojas.endereco}
               </p>
             </div>

@@ -2,15 +2,26 @@
 import pool from '@/app/api/db';
 
 export async function GET(request: Request) {
+
   const { searchParams } = new URL(request.url);
-  const street = searchParams.get('street');
-  const category = searchParams.get('category');
-  const product = searchParams.get('product');
-
-  console.log('Received query parameters:', { street, category, product });
-
+  const searchTerm = searchParams.get('q')?.trim() ?? '';
+  const street = searchParams.get('street')?.trim() ?? '';
+  const category = searchParams.get('category')?.trim() ?? '';
+  const product = searchParams.get('product')?.trim() ?? '';
   const conditions: string[] = [];
   const values: any[] = [];
+
+  if (searchTerm) {
+    const searchResults = await pool.query(
+      `SELECT *
+       FROM stores s
+       WHERE s.nome_loja ILIKE $1
+       ORDER BY s.nome_loja ASC
+       LIMIT 10`,
+      [`%${searchTerm}%`]
+    );
+    return Response.json(searchResults.rows);
+  }
 
   if (street) {
     values.push(street);
