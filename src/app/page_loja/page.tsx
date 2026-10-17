@@ -7,6 +7,7 @@ import { useSearchParams } from "next/navigation";
 import Maps from "@components/maps";
 import Link from "next/link";
 import Footer from "@components/footer";
+import BtnMPago from "@components/btnMPago";
 
 type Loja = {
   id: number;
@@ -132,7 +133,7 @@ function PaginaLojaContent() {
   return (
     <>
       <div className="w-full pl-4 sm:pl-24 pr-4 sm:pr-24 pt-2 pb-2 bg-[#6B6E4F]">
-        <Header localLoja={updateSelecao} pageLoja={grupo} />
+        <Header isSingleStorePage={true} />
       </div>
 
       <div className="flex flex-col sm:flex-row pl-4 sm:pl-24 pr-4 sm:pr-24 gap-2 items-center mt-4">
@@ -201,6 +202,7 @@ function PaginaLojaContent() {
                 <div className="p-4">
                   <h3 className="text-base font-semibold text-slate-900">{productLabel(product)}</h3>
                   {product.descricao ? <p className="mt-2 text-sm text-slate-600">{product.descricao}</p> : null}
+                  
                 </div>
               </article>
             ))}
@@ -209,7 +211,9 @@ function PaginaLojaContent() {
           <p className="text-center text-sm text-slate-500 pb-2">Nenhum produto cadastrado para esta loja.</p>
         )}
       </div>
-
+      <div className="pl-4 sm:pl-24 pr-4 sm:pr-24 mt-1 mb-1">
+        <BtnMPago />
+      </div>
       <div className="pl-4 sm:pl-24 pr-4 sm:pr-24 mt-1 mb-1"><Footer /></div>
     </>
   )
