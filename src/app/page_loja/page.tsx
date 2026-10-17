@@ -211,7 +211,7 @@ function PaginaLojaContent() {
           <p className="text-center text-sm text-slate-500 pb-2">Nenhum produto cadastrado para esta loja.</p>
         )}
       </div>
-      <div className="pl-4 sm:pl-24 pr-4 sm:pr-24 mt-1 mb-1">
+      <div className="hidden pl-4 sm:pl-24 pr-4 sm:pr-24 mt-1 mb-1">
         <BtnMPago />
       </div>
       <div className="pl-4 sm:pl-24 pr-4 sm:pr-24 mt-1 mb-1"><Footer /></div>
