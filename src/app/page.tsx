@@ -95,7 +95,7 @@ export default function Home() {
     <main className="flex min-h-screen flex-col items-center justify-between p-0 ">
       {/* menu dispositivos moveis -icone */}
       <div className="header-container relative w-full pl-4 pr-4 sm:pl-24 sm:pr-24 pt-2 pb-2 bg-[#6B6E4F] ">
-        <Header pageLoja={null}/>
+        <Header isSingleStorePage={false}/>
       </div>
       <div className="w-full pl-4 pr-4 sm:pl-24 sm:pr-24">
         <div className="pointer-events-none h-8 sm:h-12 rounded-b-2xl bg-white/25 backdrop-blur-sm border-b border-white/30 shadow-sm flex items-center justify-center">

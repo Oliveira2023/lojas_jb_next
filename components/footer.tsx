@@ -11,9 +11,9 @@ export default function Footer() {
                         O projeto tem a finalidade de reunir o comércio local e integra as seguintes avenidas principais:
                     </p>
                     <ul className="">
-                        <li className="list-disc">Roland Garros</li>
-                        <li>Jardim Japão</li>
-                        <li>Eduardo Chaves</li>
+                        <li className="list-disc list-inside">Roland Garros</li>
+                        <li className="list-disc list-inside">Jardim Japão</li>
+                        <li className="list-disc list-inside">Eduardo Chaves</li>
                     </ul>
                 </div>
                 <div className="w-full sm:w-1/3 p-2 border border-black">

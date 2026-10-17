@@ -133,7 +133,7 @@ export default function PaginaLoja() {
   return (
     <>
       <div className="w-full pl-4 sm:pl-24 pr-4 sm:pr-24 pt-2 pb-2 bg-[#6B6E4F]">
-        <Header localLoja={updateSelecao} pageLoja={grupo} />
+        <Header isSingleStorePage={true} />
       </div>
 
       <div className="flex flex-col sm:flex-row pl-4 sm:pl-24 pr-4 sm:pr-24 gap-2 items-center mt-4">

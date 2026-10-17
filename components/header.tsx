@@ -8,7 +8,7 @@ import FetchCategories from "@utils/fetchCategories";
 import FetchProducts from "@utils/fetchProducts";
 
 type HeaderProps = {
-  pageLoja: string | null;
+  isSingleStorePage: boolean;
 };
 
 const streetOptions = [
@@ -114,7 +114,7 @@ const secondarySelectStyles = {
   }),
 };
 
-export default function Header({ pageLoja }: HeaderProps) {
+export default function Header({ isSingleStorePage }: HeaderProps) {
 
     const [resetCounter, setResetCounter] = useState(0)
     const router = useRouter();
@@ -226,9 +226,8 @@ export default function Header({ pageLoja }: HeaderProps) {
                 </div>
               </Link>
             </li>
-            {/* <div 
-              id="navigation-options"
-              className={` ${isOpen ? 'flex' : 'hidden'} w-full flex-col gap-3 sm:flex sm:flex-1 sm:flex-row sm:items-center sm:justify-evenly sm:gap-0`}> */}
+            {!isSingleStorePage && (
+              <>
               <li className={`${isOpen ? 'flex' : 'hidden'} sm:flex w-full sm:w-[auto] transition-hover duration-300 sm:hover:scale-110`}>
                 <Select
                   className="w-full flex flex-col justify-between"
@@ -272,10 +271,11 @@ export default function Header({ pageLoja }: HeaderProps) {
                   aria-label="Selecione o Produto"
                 />
               </li>
+              </>
+            )}
               <li className={`bg-white/25 ${isOpen ? 'flex' : 'hidden'} sm:flex w-full sm:w-auto`}>
                 <Search key={`search-${resetCounter}`} placeholder="Buscar pelas melhores lojas" />
               </li>
-            {/* </div> */}
           </ul>
           <button 
             type="button"
