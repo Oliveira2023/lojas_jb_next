@@ -36,45 +36,6 @@ export default function Home() {
   });
   }, [street, category, product]);
  
-
-  // seleção da catetorias
-  // Grupo selecionado no select das avenidas ou nas categorias
-  // updateselecao recebe a cagegoria atualizando a selecao atualiza o grupo
-  useEffect(() => {
-
-    if (!loja) {
-      setGrupo('all');
-    } else if (loja === 'Lojas Roland Garros') {
-      setGrupo('roland');
-    } else if (loja === 'Lojas Jardim Japão') {
-      setGrupo('japao');
-    } else if (loja === 'Lojas Edu Chaves') {
-      setGrupo('chaves');
-    } else if (loja === 'Farmácias') {
-      setGrupo('Farmacia');
-    } else if (loja === 'Mercados') {
-      setGrupo('Mercado');
-    } else if (loja === 'Celulares') {
-      setGrupo('Celular');
-    } else if (loja === 'Vestuário') {
-      setGrupo('Vestuario');
-    } else if (loja === 'Variedades') {
-      setGrupo('variedades');
-    } else if (loja === 'Óticas') {
-      setGrupo('Otica');
-    } else if (loja === "Construção") {
-      setGrupo('Construcao');
-    } else if (loja === "Salão de Beleza") {
-      setGrupo('Beleza');
-    } else if (loja === "Avículas") {
-      setGrupo('Avicula');
-    } else if (loja === "Bebidas") {
-      setGrupo('Bebidas');
-    } else {
-      setGrupo('none');
-    }
-  }, [loja])
-
   const updateSelecao = (selecao: string) => {
     updateLoja(selecao)
     

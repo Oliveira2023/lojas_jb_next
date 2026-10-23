@@ -26,11 +26,12 @@ type Loja = {
 
 type Product = {
   id: number;
-  store_id?: number | string;
-  product_name?: string;
-  nome?: string;
-  descricao?: string;
-  image_url?: string;
+  store_id: number;
+  product_id: number;
+  price: number | string;
+  nome: string;
+  description?: string;
+  image_url?: string | null;
 }
 
 export default function PaginaLoja() {
@@ -41,7 +42,7 @@ export default function PaginaLoja() {
 
   const searchParams = useSearchParams();
   const lojaId = searchParams.get('loja');
-  const grupo = searchParams.get('grupo');
+  // const grupo = searchParams.get('grupo');
 
   useEffect(() => {
     if (!lojaId) return;
@@ -51,6 +52,7 @@ export default function PaginaLoja() {
         const response = await fetch(`/api/products?store_id=${lojaId}`);
         if (!response.ok) throw new Error('Failed to fetch products');
         const data = await response.json();
+        console.log('Fetched products:', data);
         setProducts(Array.isArray(data) ? data : []);
       } catch (error) {
         console.error('Error fetching products:', error);
@@ -124,7 +126,7 @@ export default function PaginaLoja() {
     }
   }
 
-  const productLabel = (product: Product) => product.product_name || product.nome || 'Produto';
+  const productLabel = (product: Product) => product.nome || product.nome || 'Produto';
   const productImage = (product: Product) => product.image_url || '/next.svg';
 
   if (loading) return <p className="text-center mt-10">Carregando...</p>
@@ -200,9 +202,11 @@ export default function PaginaLoja() {
                   <Image src={productImage(product)} alt={productLabel(product)} fill className="object-cover" />
                 </div>
                 <div className="p-4">
-                  <h3 className="text-base font-semibold text-slate-900">{productLabel(product)}</h3>
-                  {product.descricao ? <p className="mt-2 text-sm text-slate-600">{product.descricao}</p> : null}
-                  
+                  <h3 className="text-base font-semibold text-slate-900">{product.nome}</h3>
+                  {product.description ? <p className="mt-2 text-sm text-slate-600">{product.description}</p> : null}
+                  <p className="mt-2 font-semibold text-slate-900">
+                    R$ {Number(product.price).toFixed(2)}
+                  </p>
                 </div>
               </article>
             ))}
