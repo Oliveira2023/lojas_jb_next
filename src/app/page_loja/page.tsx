@@ -29,9 +29,12 @@ type Product = {
   store_id: number;
   product_id: number;
   price: number | string;
-  nome: string;
+  name: string;
   description?: string;
   image_url?: string | null;
+}
+type CartItem = Product & {
+  quantity: number;
 }
 
 export default function PaginaLoja() {
@@ -43,6 +46,7 @@ export default function PaginaLoja() {
   const searchParams = useSearchParams();
   const lojaId = searchParams.get('loja');
   // const grupo = searchParams.get('grupo');
+  const [cart, setCart] = useState<CartItem[]>([]);
 
   useEffect(() => {
     if (!lojaId) return;
@@ -84,8 +88,33 @@ export default function PaginaLoja() {
     getMapsApiKey();
   }, []);
 
-  const [selectedLoja, updateSelectedLoja] = useState<string>('')
-  const updateSelecao = (resultado: string) => updateSelectedLoja(resultado)
+  const addToCart = (product: Product) => {
+    setCart(currentCart => {
+      const existingItem = currentCart.find(
+        item => item.id === product.id
+      );
+      if (existingItem) {
+        return currentCart.map(item =>
+          item.id === product.id
+            ? { ...item, quantity: item.quantity + 1}
+            : item
+        );
+      }
+      return [...currentCart, { ...product, quantity: 1 }];
+    });
+  }
+
+  const removeFromCart = (productId: number) => {
+    setCart((currentCart) =>
+      currentCart.map(item =>
+        item.id === productId
+          ? { ...item, quantity: item.quantity - 1}
+          : item
+      ).filter((item) => item.quantity > 0)
+    );
+  }
+
+  const cartTotal = cart.reduce((total, item) => total + (Number(item.price) * item.quantity), 0);
 
   const showTelefone = () => {
     const phoneImage = document.getElementById('phoneImage');
@@ -126,8 +155,13 @@ export default function PaginaLoja() {
     }
   }
 
-  const productLabel = (product: Product) => product.nome || product.nome || 'Produto';
-  const productImage = (product: Product) => product.image_url || '/next.svg';
+  const productLabel = (product: Product) => product.name || 'Produto';
+  const productImage = (product: Product) => {
+    if (product.image_url) {
+    return `/api/avatar/view?pathname=${encodeURIComponent(product.image_url)}`;
+    }
+    return '/camera500.jpg';
+  }
 
   if (loading) return <p className="text-center mt-10">Carregando...</p>
   if (!loja) return <p className="text-center mt-10">Loja não encontrada.</p>
@@ -195,24 +229,97 @@ export default function PaginaLoja() {
       <div className="pr-4 sm:pr-24 pl-4 sm:pl-24 w-full m-auto">
         <p className="text-center text-lg font-semibold p-2">Principais produtos da loja:</p>
         {products.length > 0 ? (
-          <div className="grid grid-cols-1 gap-4 pb-2 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="grid grid-cols-2 gap-4 pb-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 max-h-[70vh] overflow-y-auto">
             {products.map((product) => (
               <article key={product.id} className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-md transition hover:-translate-y-1 hover:shadow-lg">
-                <div className="relative h-40 w-full bg-slate-100">
-                  <Image src={productImage(product)} alt={productLabel(product)} fill className="object-cover" />
+                <div className="relative aspect-square w-full bg-slate-100">
+                  <Image src={productImage(product)} alt={productLabel(product)} fill className="object-contain" />
                 </div>
-                <div className="p-4">
-                  <h3 className="text-base font-semibold text-slate-900">{product.nome}</h3>
+                <div className="p-2">
+                  <h3 className="text-base font-semibold text-slate-900  whitespace-normal break-words">{product.name}</h3>
                   {product.description ? <p className="mt-2 text-sm text-slate-600">{product.description}</p> : null}
-                  <p className="mt-2 font-semibold text-slate-900">
-                    R$ {Number(product.price).toFixed(2)}
-                  </p>
+                  <div>
+                    <p className="mt-2 font-semibold text-slate-900">
+                      R$ {Number(product.price).toFixed(2)}
+                    </p>
+                    <button
+                      type="button"
+                      onClick={() => addToCart(product)}
+                      className="mt-2 w-full rounded-md bg-blue-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-400">
+                    
+                      Adic. ao carrinho
+                    </button>
+                  </div>
                 </div>
               </article>
             ))}
           </div>
         ) : (
           <p className="text-center text-sm text-slate-500 pb-2">Nenhum produto cadastrado para esta loja.</p>
+        )}
+      </div>
+      <div className="pl-4 sm:pl-24 pr-4 sm:pr-24">
+        <hr className="bg-slate-600 w-full pt-2 mt-2" />
+      </div>
+      <div className="ml-4 sm:ml-24 mr-4 sm:mr-24 mt-6 rounded-xl border border-slate-300 bg-white p-4 shadow-md">
+        <h2 className="text-xl font-semibold text-slate-900">
+          Carrinho
+        </h2>
+
+        {cart.length === 0 ? (
+          <p className="mt-3 text-sm text-slate-500">
+            Nenhum produto selecionado.
+          </p>
+        ) : (
+          <>
+            <div className="mt-4 max-h-64 space-y-3 overflow-y-auto">
+              {cart.map((item) => (
+                <div
+                  key={item.id}
+                  className="flex items-center justify-between gap-3 border-b border-slate-200 pb-3"
+                >
+                  <div className="min-w-0">
+                    <p className="break-words font-medium text-slate-900">
+                      {item.name}
+                    </p>
+
+                    <p className="text-sm text-slate-600">
+                      R$ {Number(item.price).toFixed(2)} x {item.quantity}
+                    </p>
+                  </div>
+
+                  <div className="flex shrink-0 items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => removeFromCart(item.id)}
+                      className="rounded bg-slate-200 px-2 py-1 text-slate-800 hover:bg-slate-300"
+                      aria-label={`Remover uma unidade de ${item.name}`}
+                    >
+                      −
+                    </button>
+
+                    <span className="min-w-6 text-center">
+                      {item.quantity}
+                    </span>
+
+                    <button
+                      type="button"
+                      onClick={() => addToCart(item)}
+                      className="rounded bg-blue-500 px-2 py-1 text-white hover:bg-blue-600"
+                      aria-label={`Adicionar uma unidade de ${item.name}`}
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-4 flex justify-between border-t border-slate-300 pt-4 text-lg font-bold">
+              <span>Total:</span>
+              <span>R$ {cartTotal.toFixed(2)}</span>
+            </div>
+          </>
         )}
       </div>
       <div className="pl-4 sm:pl-24 pr-4 sm:pr-24 mt-1 mb-1">

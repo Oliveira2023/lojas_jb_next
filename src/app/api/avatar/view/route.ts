@@ -5,6 +5,7 @@ export async function GET(request: NextRequest) {
   // ⚠️ Authenticate the request before serving the blob
 
   const pathname = request.nextUrl.searchParams.get('pathname');
+    console.log('pathname', pathname);
   if (!pathname) {
     return NextResponse.json({ error: 'Missing pathname' }, { status: 400 });
   }
