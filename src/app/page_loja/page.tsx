@@ -8,6 +8,8 @@ import Maps from "@components/maps";
 import Link from "next/link";
 import Footer from "@components/footer";
 import BtnMPago from "@components/btnMPago";
+import WalletButton from "../api/checkout/wallet-button";
+import PageBottom from "../api/checkout/page";
 
 type Loja = {
   id: number;
@@ -47,6 +49,7 @@ export default function PaginaLoja() {
   const lojaId = searchParams.get('loja');
   // const grupo = searchParams.get('grupo');
   const [cart, setCart] = useState<CartItem[]>([]);
+  const [preferenceId, setPreferenceId] = useState<string | null>(null);
 
   useEffect(() => {
     if (!lojaId) return;
@@ -85,6 +88,10 @@ export default function PaginaLoja() {
       const data = await response.json();
       setMapsApiKey(data.apiKey ?? null);
     }
+    // para o 1º teste: cria a preferência ao entrar na página
+    fetch("/api/mp/preference", { method: "POST" })
+      .then((r) => r.json())
+      .then((d) => setPreferenceId(d.preferenceId));
     getMapsApiKey();
   }, []);
 
@@ -322,9 +329,15 @@ export default function PaginaLoja() {
           </>
         )}
       </div>
-      <div className="pl-4 sm:pl-24 pr-4 sm:pr-24 mt-1 mb-1">
+      {/* <div className="pl-4 sm:pl-24 pr-4 sm:pr-24 mt-1 mb-1">
         <BtnMPago />
+      </div> */}
+      <div className="pl-4 sm:pl-24 pr-4 sm:pr-24 mt-1 mb-1">
+        {preferenceId && <WalletButton preferenceId={preferenceId} />}
       </div>
+      {/* <div className="pl-4 sm:pl-24 pr-4 sm:pr-24 mt-1 mb-1">
+        <PageBottom />
+      </div> */}
       <div className="pl-4 sm:pl-24 pr-4 sm:pr-24 mt-1 mb-1"><Footer /></div>
     </>
   )
