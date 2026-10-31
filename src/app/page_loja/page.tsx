@@ -237,7 +237,7 @@ export default function PaginaLoja() {
                 </div>
                 <div className="p-2">
                   <h3 className="text-base font-semibold text-slate-900  whitespace-normal break-words">{product.name}</h3>
-                  {product.description ? <p className="mt-2 text-sm text-slate-600">{product.description}</p> : null}
+                  {product.description ? <p className="mt-2 text-sm text-slate-600 overflow-y-auto whitespace-normal break-words leading-6">{product.description}</p> : null}
                   <div>
                     <p className="mt-2 font-semibold text-slate-900">
                       R$ {Number(product.price).toFixed(2)}
