@@ -1,0 +1,8 @@
+{
+	"mcpServers": {
+		"my-mcp-server-cf7dae49": {
+			"url": "https://mcp.mercadopago.com/mcp",
+			"type": "http"
+		}
+	}
+}

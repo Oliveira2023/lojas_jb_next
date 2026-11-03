@@ -11,7 +11,7 @@ export default function CardsLojas({ gruppo, image, nome, numLoja }: CardsLojasP
     return (
         <>
             <div className="flex flex-col gap-2">
-                <Link href={{pathname: "/page_loja", query: {loja: numLoja, grupo: gruppo}}}>
+                <Link href={{pathname: "/page_loja", query: {loja: numLoja}}}>
                     <div className="relative w-full h-auto overflow-hidden rounded-md hover:opacity-80 transition">
                         <Image className="w-full h-auto" src={image} width={200} height={200} alt={nome}/>
                     </div>

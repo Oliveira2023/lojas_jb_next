@@ -49,7 +49,8 @@ export default function PaginaLoja() {
   const lojaId = searchParams.get('loja');
   // const grupo = searchParams.get('grupo');
   const [cart, setCart] = useState<CartItem[]>([]);
-  const [preferenceId, setPreferenceId] = useState<string | null>(null);
+  const [preferenceId, setPreferenceId] = useState<boolean | null>(false);
+  const [paymentLoading, setPaymentLoading] = useState(false);
 
   useEffect(() => {
     if (!lojaId) return;
@@ -89,11 +90,33 @@ export default function PaginaLoja() {
       setMapsApiKey(data.apiKey ?? null);
     }
     // para o 1º teste: cria a preferência ao entrar na página
-    fetch("/api/mp/preference", { method: "POST" })
-      .then((r) => r.json())
-      .then((d) => setPreferenceId(d.preferenceId));
-    getMapsApiKey();
+    // fetch("/api/mp/preference", { method: "POST" })
+    //   .then((r) => r.json())
+    //   .then((d) => setPreferenceId(d.preferenceId));
+    // getMapsApiKey();
   }, []);
+
+  async function handleFinalize(cartItems: CartItem[]) {
+    setPaymentLoading(true);
+    try {
+      const r = await fetch("/api/mp/preference", { 
+        method: "POST",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ cartItems })
+      });
+      const data = await r.json();
+      // console.log("Preference response:", data);
+      if (!r.ok || !data.checkoutUrl) {
+        console.error("Error creating preference:", data);
+        alert("Erro ao criar preferência de pagamento. Tente novamente.");
+        return;
+      }
+      // redireciona para o checkout
+      window.location.href = data.checkoutUrl;
+    } finally {
+      setPaymentLoading(false);
+    }
+  }
 
   const addToCart = (product: Product) => {
     setCart(currentCart => {
@@ -240,7 +263,7 @@ export default function PaginaLoja() {
             {products.map((product) => (
               <article key={product.id} className="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-md transition hover:-translate-y-1 hover:shadow-lg">
                 <div className="relative aspect-square w-full bg-slate-100">
-                  <Image src={productImage(product)} alt={productLabel(product)} fill className="object-contain" />
+                  <Image src={productImage(product)} alt={productLabel(product)} fill className="object-contain width={500} height={500}" />
                 </div>
                 <div className="p-2">
                   <h3 className="text-base font-semibold text-slate-900  whitespace-normal break-words">{product.name}</h3>
@@ -332,12 +355,14 @@ export default function PaginaLoja() {
       {/* <div className="pl-4 sm:pl-24 pr-4 sm:pr-24 mt-1 mb-1">
         <BtnMPago />
       </div> */}
-      <div className="pl-4 sm:pl-24 pr-4 sm:pr-24 mt-1 mb-1">
-        {preferenceId && <WalletButton preferenceId={preferenceId} />}
-      </div>
       {/* <div className="pl-4 sm:pl-24 pr-4 sm:pr-24 mt-1 mb-1">
-        <PageBottom />
+        {preferenceId && <WalletButton preferenceId={preferenceId} />}
       </div> */}
+      <div className="pl-4 sm:pl-24 pr-4 sm:pr-24 mt-2 mb-2 flex justify-center">
+        <button type="button" onClick={() => handleFinalize(cart)} disabled={paymentLoading || cart.length === 0} className="rounded-md bg-blue-500 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-400 disabled:opacity-50 disabled:cursor-not-allowed">
+          {paymentLoading ? "Indo para pagamento..." : "Finalizar compra"}
+        </button>
+      </div>
       <div className="pl-4 sm:pl-24 pr-4 sm:pr-24 mt-1 mb-1"><Footer /></div>
     </>
   )
