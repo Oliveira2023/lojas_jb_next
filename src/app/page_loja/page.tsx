@@ -105,7 +105,7 @@ export default function PaginaLoja() {
         body: JSON.stringify({ cartItems })
       });
       const data = await r.json();
-      // console.log("Preference response:", data);
+      console.log("Preference response:", data);
       if (!r.ok || !data.checkoutUrl) {
         console.error("Error creating preference:", data);
         alert("Erro ao criar preferência de pagamento. Tente novamente.");

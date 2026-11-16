@@ -19,9 +19,9 @@ export async function POST(request: Request) {
             unit_price: Number(item.unit_price),
           })),
           back_urls: {
-            success: "http://localhost:3000/pagamento/sucesso",
-            failure: "http://localhost:3000/pagamento/erro",
-            pending: "http://localhost:3000/pagamento/pendente",
+            success: "https://www.lojasjardimbrasil.com.br/",
+            failure: "https://www.lojasjardimbrasil.com.br/",
+            pending: "https://www.lojasjardimbrasil.com.br/",
           },
           auto_return: "approved",
         }),

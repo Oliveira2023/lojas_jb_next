@@ -31,7 +31,7 @@ export async function POST(request: Request) {
   }
   // return NextResponse.json({ preferenceId: data.id });
   return NextResponse.json(
-    { preferenceId: data.id, checkoutUrl: data.sandbox_init_point },
+    { preferenceId: data.id, checkoutUrl: data.init_point },
     { status: res.status }
     );
 }

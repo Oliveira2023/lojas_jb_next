@@ -39,16 +39,14 @@ export async function GET(request: Request) {
     conditions.push(`
       EXISTS (
         SELECT 1
-        FROM store_products sp
-        INNER JOIN products p
-        ON p.id = sp.product_id
-        WHERE sp.store_id = s.id
-        AND p.nome ILIKE $${values.length})
+        FROM products p
+        WHERE p.store_id = s.id
+        AND p.name ILIKE $${values.length})
       `);
   }
 console.log('values:', values);
   const whereClause = conditions.length ? `WHERE ${conditions.join(' AND ')}` : '';
-//console.log(whereClause ? `WHERE clause: ${whereClause}` : 'No WHERE clause applied.');
+console.log(whereClause ? `WHERE clause: ${whereClause}` : 'No WHERE clause applied.');
   try {
     const result = await pool.query(
         `SELECT *
