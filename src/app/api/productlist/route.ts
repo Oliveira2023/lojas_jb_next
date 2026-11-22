@@ -6,10 +6,10 @@ export async function GET(request: Request) {
   const street = searchParams.get('street');
   const category = searchParams.get('category');
 
-  const conditions = ["p.nome IS NOT NULL"];
-  const values: any[] = [];
-
   console.log('Fetching products from the database...');
+
+  const conditions = ["p.name IS NOT NULL"];
+  const values: any[] = [];
 
   if (street) {
     values.push(street);
@@ -21,16 +21,14 @@ export async function GET(request: Request) {
   }
   try {
     const result = await pool.query(
-      `SELECT DISTINCT p.nome
-       FROM stores s
-       INNER JOIN store_products sp ON s.id = sp.store_id
-       INNER JOIN products p
-        ON p.id = sp.product_id
+      `SELECT DISTINCT p.name
+       FROM products p
+       INNER JOIN stores s ON s.id = p.store_id
        WHERE ${conditions.join(' AND ')}
-       ORDER BY p.nome`,
+       ORDER BY p.name ASC`,
         values
     );
-    const products = result.rows.map((row) => row.nome);
+    const products = result.rows.map((row) => row.name);
     return Response.json(products);
   } catch (error) {
     return Response.json({ error: 'Failed to fetch products' }, { status: 500 });
