@@ -8,8 +8,6 @@ import Maps from "@components/maps";
 import Link from "next/link";
 import Footer from "@components/footer";
 import BtnMPago from "@components/btnMPago";
-import WalletButton from "../api/checkout/wallet-button";
-import PageBottom from "../api/checkout/page";
 
 type Loja = {
   id: number;
